@@ -18,16 +18,24 @@ const footer = '</html>';
 app.get('/', (request, response) => {
   text = header.concat('<body> \
   <button id=\"reboot\">Reboot Pi</button> \
+  <button id=\"trans\">Start Transmission</button> \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href=\"http://192.168.50.156:9095\" target=\"_blank">Transmission</a></div> \
   </body>');
 
-  buttonScript = "$(document).ready(function () { \
+  buttonScript = "<script>$(document).ready(function () { \
     $(\"#reboot\").click(function () \
-    { \$.post(\"/reboot\", {  }, \
-        function (data, status) {console.log(data);});} \
-        });});";
-  text = text.replace("[SCRIPTHERE]", "");
+    { if(confirm(\"Are you sure you want to reboot?\")){ \
+      \$.post(\"/reboot\", {  }, \
+        function (data, status) {console.log(data);})} \
+        })});";
+  buttonScript = buttonScript.concat("$(document).ready(function () { \
+    $(\"#trans\").click(function () \
+    { if(confirm(\"Are you sure you want to start Transmission?\")){ \
+      \$.post(\"/trans\", {  }, \
+        function (data, status) {console.log(data);})} \
+        })});</script>")
+  text = text.replace("[SCRIPTHERE]", buttonScript);
   text = text.concat(footer);
   response.send(text);
 });
@@ -162,14 +170,29 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
   href = href.replace("//", "/");
   // Delete file
   if (type == "file" && action == "delete"){
-      fs.unlinkSync("/".concat(href, fileName));
-      res.render(req.body.href);
+      fs.unlinkSync("/".concat(href, fileName).replace(/\+/, "/").replace(/\%20/, " "));
+  }
+  // Rename file
+  if (type == "file" && action == "rename"){
+      fs.rename("/".concat(href,fileName).replace(/\+/, "/").replace(/\%20/, " "), "/".concat(href,newName).replace(/\+/, "/").replace(/\%20/, " "), () => {});
   }
   res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href));
 });
 
 app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
-  
+  const { exec } = require('child_process');
+  exec("sudo reboot", (error, stdout, stderr) => {
+    if (error){}
+    if (stderr) {}
+  });
+})
+
+app.post("/trans", bodyParser.urlencoded(), (req, res) => {
+  const { exec } = require('child_process');
+  exec("transmission-gtk", (error, stdout, stderr) => {
+    if (error){}
+    if (stderr) {}
+  });
 })
 
 app.listen(process.env.PORT || 3000, () => console.log('Online'))
