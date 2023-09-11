@@ -149,7 +149,13 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
   action = String(req.body.action);
   href = "mnt/usb/".concat(String(req.body.href).split("/").slice(-1));
   href = href.replace(/\+/, "/").replace(/\%20/, " ").concat("/");
-  res.status(200).send("file: ".concat(href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action));
+  href = href.replace("//", "/");
+  // Delete file
+  if (type == "file" && action == "delete"){
+      fs.unlinkSync("/".concat(href, fileName));
+      res.redirect('back');
+  }
+  res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action));
 });
 
 app.listen(process.env.PORT || 3000, () => console.log('Online'))
