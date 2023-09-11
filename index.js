@@ -2,8 +2,10 @@ const express = require('express');
 const fs = require('fs');
 const filePath = require('path');
 const bodyParser = require('body-parser');
+const favicon = require('serve-favicon')
 const app = express();
 app.use(express.json());
+app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
 const header = '<!DOCTYPE html><html><head> \
 <title>Cabbage Connect</title> \
@@ -15,6 +17,7 @@ const footer = '</html>';
 // Landing
 app.get('/', (request, response) => {
   text = header.concat('<body><a href="/files/">File Explorer</a></body>');
+  text = text.replace("[SCRIPTHERE]", "");
   text = text.concat(footer);
   response.send(text);
 });
