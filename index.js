@@ -16,7 +16,17 @@ const footer = '</html>';
 
 // Landing
 app.get('/', (request, response) => {
-  text = header.concat('<body><a href="/files/">File Explorer</a></body>');
+  text = header.concat('<body> \
+  <button id=\"reboot\">Reboot Pi</button> \
+  <div><a href="/files/">File Explorer</a></div> \
+  <div><a href=\"http://192.168.50.156:9095\" target=\"_blank">Transmission</a></div> \
+  </body>');
+
+  buttonScript = "$(document).ready(function () { \
+    $(\"#reboot\").click(function () \
+    { \$.post(\"/reboot\", {  }, \
+        function (data, status) {console.log(data);});} \
+        });});";
   text = text.replace("[SCRIPTHERE]", "");
   text = text.concat(footer);
   response.send(text);
@@ -153,9 +163,13 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
   // Delete file
   if (type == "file" && action == "delete"){
       fs.unlinkSync("/".concat(href, fileName));
-      res.redirect('back');
+      res.render(req.body.href);
   }
-  res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action));
+  res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href));
 });
+
+app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
+  
+})
 
 app.listen(process.env.PORT || 3000, () => console.log('Online'))
