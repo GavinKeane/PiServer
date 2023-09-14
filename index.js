@@ -7,6 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
+output1 = '';
 const header = '<!DOCTYPE html><html><head> \
 <title>Cabbage Connect</title> \
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> \
@@ -16,9 +17,18 @@ const footer = '</html>';
 
 // Landing
 app.get('/', (request, response) => {
+  var execs = require('child_process');
+  wind_status = execs.execSync("windscribe status", {timeout: 10000}).toString();
+  wind_fire = execs.execSync("windscribe firewall", {timeout: 10000}).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
+  wind = '';
+  if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")){
+    wind = "<div>Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(wind_fire, "</div>");
+  }else{
+    wind = "<div>Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(wind_fire, "</div>");
+  }
   text = header.concat('<body> \
-  <button id=\"reboot\">Reboot Pi</button> \
-  <button id=\"trans\">Start Transmission</button> \
+  <div><button id=\"reboot\">Reboot Pi</button></div> \
+  <div><button id=\"trans\">Start Transmission</button></div>', wind, ' \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href=\"http://192.168.50.156:9095\" target=\"_blank">Transmission</a></div> \
   </body>');
