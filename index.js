@@ -20,15 +20,22 @@ app.get('/', (request, response) => {
   var execs = require('child_process');
   wind_status = execs.execSync("windscribe status", {timeout: 10000}).toString();
   wind_fire = execs.execSync("windscribe firewall", {timeout: 10000}).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
+  trans_status = execs.execSync("/home/gavin/Desktop/project/check-trans.sh", {timeout: 10000}).toString();
   wind = '';
+  trans ='';
   if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")){
     wind = "<div>Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(wind_fire, "</div>");
   }else{
     wind = "<div>Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(wind_fire, "</div>");
   }
+  if (trans_status.includes("yes")){
+    trans = "<div>Transmission is <span class=\"good\">running</span></div>";
+  }else if (trans_status.includes("no")){
+    trans = "<div>Transmission is <span class=\"bad\">not running</span></div>";
+  }
   text = header.concat('<body> \
   <div><button id=\"reboot\">Reboot Pi</button></div> \
-  <div><button id=\"trans\">Start Transmission</button></div>', wind, ' \
+  <div><button id=\"trans\">Start Transmission</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href=\"http://192.168.50.156:9095\" target=\"_blank">Transmission</a></div> \
   </body>');
