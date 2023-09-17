@@ -8,10 +8,19 @@ app.use(express.json());
 app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
 output1 = '';
+var execs = require('child_process');
+trans_status = execs.execSync("/home/gavin/Desktop/project/check-trans.sh", {timeout: 10000}).toString();
+if (trans_status.includes("no")){
+  execs.exec("transmission-gtk");
+}
 const header = '<!DOCTYPE html><html><head> \
 <title>Cabbage Connect</title> \
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> \
 [SCRIPTHERE] \
+<style> \
+ .good {color:green; text-decoration:underline} \
+ .bad {color:red; text-decoration:underline} \
+</style> \
 </head>';
 const footer = '</html>';
 
@@ -29,13 +38,12 @@ app.get('/', (request, response) => {
     wind = "<div>Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(wind_fire, "</div>");
   }
   if (trans_status.includes("yes")){
-    trans = "<div>Transmission is <span class=\"good\">running</span></div>";
+   trans = "<div>Transmission is <span class=\"good\">running</span></div>";
   }else if (trans_status.includes("no")){
-    trans = "<div>Transmission is <span class=\"bad\">not running</span></div>";
+   trans = "<div>Transmission is <span class=\"bad\">not running</span></div>";
   }
   text = header.concat('<body> \
-  <div><button id=\"reboot\">Reboot Pi</button></div> \
-  <div><button id=\"trans\">Start Transmission</button></div>', wind, trans, ' \
+  <div><button id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href=\"http://192.168.50.156:9095\" target=\"_blank">Transmission</a></div> \
   </body>');
