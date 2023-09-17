@@ -54,12 +54,6 @@ app.get('/', (request, response) => {
       \$.post(\"/reboot\", {  }, \
         function (data, status) {console.log(data);})} \
         })});";
-  buttonScript = buttonScript.concat("$(document).ready(function () { \
-    $(\"#trans\").click(function () \
-    { if(confirm(\"Are you sure you want to start Transmission?\")){ \
-      \$.post(\"/trans\", {  }, \
-        function (data, status) {console.log(data);})} \
-        })});</script>")
   text = text.replace("[SCRIPTHERE]", buttonScript);
   text = text.concat(footer);
   response.send(text);
@@ -207,14 +201,6 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
 app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
   const { exec } = require('child_process');
   exec("sudo reboot", (error, stdout, stderr) => {
-    if (error){}
-    if (stderr) {}
-  });
-})
-
-app.post("/trans", bodyParser.urlencoded(), (req, res) => {
-  const { exec } = require('child_process');
-  exec("transmission-gtk", (error, stdout, stderr) => {
     if (error){}
     if (stderr) {}
   });
