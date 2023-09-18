@@ -9,7 +9,7 @@ app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
 output1 = '';
 var execs = require('child_process');
-trans_status = execs.execSync("/home/gavin/Desktop/project/check-trans.sh", {timeout: 10000}).toString();
+trans_status = execs.execSync("/home/gavin/Desktop/project/check-trans.sh", {timeout:10000}).toString();
 if (trans_status.includes("no")){
   execs.exec("transmission-gtk");
 }
@@ -89,6 +89,7 @@ app.get('/files/:path?', (request, response) => {
   names = names.concat('<table>')
   buttonIndex = 0;
   buttonScript = '<script>';
+  //folders = folderNames("/mnt/usb");
   fs.readdir(fullPath, (err, files) => {
     files.forEach(file => {
       if (!(String(file) === 'System Volume Information') && !(String(file) === '.Trash-1000')){
@@ -173,6 +174,7 @@ app.get('/files/:path?', (request, response) => {
       response.status(500).send('Something went wrong')
     }
     buttonScript = buttonScript.concat("console.log(\"Scripts executed\") </script>");
+    //names.concat(folders);
     names = names.replace("[SCRIPTHERE]", buttonScript);
     names = names.concat("</body>", footer);
     response.send(names);
@@ -205,5 +207,22 @@ app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
     if (stderr) {}
   });
 })
+
+// function folderNames(rootDir){
+//   const folders = [];
+//   function traverse(current) {
+//     const files = fs.readdirSync(current);
+//     files.forEach(file => {
+//       const filePath = path.join(current, file);
+//       const stats = fs.statSync(filePath);
+//       if (stats.isDirectory()){
+//         folders.push(filePath);
+//         traverse(filePath);
+//       }
+//     });
+//   }
+//   traverse(rootDir)
+//   return folders;
+// }
 
 app.listen(process.env.PORT || 3000, () => console.log('Online'))
