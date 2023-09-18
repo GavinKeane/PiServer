@@ -9,6 +9,7 @@ app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
 output1 = '';
 var execs = require('child_process');
+
 trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", {timeout:10000}).toString();
 if (trans_status.includes("no")){
   execs.exec("transmission-gtk&");
@@ -83,6 +84,7 @@ app.get('/files/:path?', (request, response) => {
     names = names.concat("<a> / </a><a href=\"/files/", subPath, "\">", pathArr[i], "</a>");
   }
 
+  // GitHub Test
   // List Files and Folders
   dropdownOptions = '';
   folders = folderNames("/mnt/usb");
@@ -219,19 +221,27 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
   fileName = String(req.body.pressed);
   type = String(req.body.type);
   newName = typeof req.body.name !== "undefined" ? String(req.body.name) : "";
+  dest = typeof req.body.destination !== "undefined" ? String(req.body.destination) : "";
   action = String(req.body.action);
   href = "mnt/usb/".concat(String(req.body.href).split("/").slice(-1));
-  href = href.replace(/\+/, "/").replace(/\%20/, " ").concat("/");
+  href = href.replace(/\+/g, "/").replace(/\%20/g, " ").concat("/");
   href = href.replace("//", "/");
   // Delete file
   if (type == "file" && action == "delete"){
-      fs.unlinkSync("/".concat(href, fileName).replace(/\+/, "/").replace(/\%20/, " "));
+      fs.unlinkSync("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "));
   }
   // Rename file
   if (type == "file" && action == "rename"){
-      fs.rename("/".concat(href,fileName).replace(/\+/, "/").replace(/\%20/, " "), "/".concat(href,newName).replace(/\+/, "/").replace(/\%20/, " "), () => {});
+      fs.rename("/".concat(href,fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href,newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => {});
   }
-  res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", req.body.destination));
+  // Delete folder
+  if (type == "folder" && action == "delete"){
+    fs.rmdir("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "), {recursive: true}, (err) => {});
+  }
+  if (type == "folder" && action == "rename"){
+    fs.rename("/".concat(href,fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href,newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => {});
+  }
+  res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", dest));
 });
 
 app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
