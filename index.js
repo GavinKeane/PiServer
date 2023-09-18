@@ -83,7 +83,6 @@ app.get('/files/:path?', (request, response) => {
     names = names.concat("<a> / </a><a href=\"/files/", subPath, "\">", pathArr[i], "</a>");
   }
 
-  // GitHub Test
   // List Files and Folders
   dropdownOptions = '';
   folders = folderNames("/mnt/usb");
@@ -132,6 +131,21 @@ app.get('/files/:path?', (request, response) => {
                   action: \"delete\" }, \
                 function (data, status) {console.log(data);});} \
               else{}});});");
+
+          // File move
+          buttonScript = buttonScript.concat("$(document).ready(function () { \
+            $(\"#button2-", buttonIndex, "\").click(function () { \
+              var loc = document.getElementById(\"select2-", buttonIndex, "\").value; \
+              var message = \"Are you sure you want to move \".concat(\"", file, " to \", loc, \"?\"); \
+              if(confirm(message)){ \
+                $.post(\"/buttonPress\", { \
+                  pressed: \"", file, "\", \
+                  type: \"file\", \
+                  href: window.location.href, \
+                  destination: loc, \
+                  action: \"move\" }, \
+                function (data, status) {console.log(data);});} \
+              else{}});});");
           buttonIndex++;
 
         // Folder
@@ -172,6 +186,21 @@ app.get('/files/:path?', (request, response) => {
                   action: \"delete\" }, \
                 function (data, status) {console.log(data);});} \
               else{}});});");
+
+          // Folder move
+          buttonScript = buttonScript.concat("$(document).ready(function () { \
+            $(\"#button2-", buttonIndex, "\").click(function () { \
+              var loc = document.getElementById(\"select2-", buttonIndex, "\").value; \
+              var message = \"Are you sure you want to move \".concat(\"", file, " to \", loc, \"?\"); \
+              if(confirm(message)){ \
+                $.post(\"/buttonPress\", { \
+                  pressed: \"", file, "\", \
+                  type: \"folder\", \
+                  href: window.location.href, \
+                  destination: loc, \
+                  action: \"move\" }, \
+                function (data, status) {console.log(data);});} \
+              else{}});});");   
           buttonIndex++;
         }
       }
@@ -202,7 +231,7 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
   if (type == "file" && action == "rename"){
       fs.rename("/".concat(href,fileName).replace(/\+/, "/").replace(/\%20/, " "), "/".concat(href,newName).replace(/\+/, "/").replace(/\%20/, " "), () => {});
   }
-  res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href));
+  res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", req.body.destination));
 });
 
 app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
