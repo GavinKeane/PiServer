@@ -9,9 +9,9 @@ app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
 output1 = '';
 var execs = require('child_process');
-trans_status = execs.execSync("/home/gavin/Desktop/project/check-trans.sh", {timeout:10000}).toString();
+trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", {timeout:10000}).toString();
 if (trans_status.includes("no")){
-  execs.exec("transmission-gtk");
+  execs.exec("transmission-gtk&");
 }
 const header = '<!DOCTYPE html><html><head> \
 <title>Cabbage Connect</title> \
@@ -53,7 +53,7 @@ app.get('/', (request, response) => {
     { if(confirm(\"Are you sure you want to reboot?\")){ \
       \$.post(\"/reboot\", {  }, \
         function (data, status) {console.log(data);})} \
-        })});";
+        })});</script>";
   text = text.replace("[SCRIPTHERE]", buttonScript);
   text = text.concat(footer);
   response.send(text);
@@ -85,11 +85,15 @@ app.get('/files/:path?', (request, response) => {
 
   // GitHub Test
   // List Files and Folders
+  dropdownOptions = '';
+  folders = folderNames("/mnt/usb");
+  folders.forEach(folder => {
+    dropdownOptions = dropdownOptions.concat("<option value=\"", folder, "\">", folder, "</option>");
+  })
   fullPath = root.concat(pathVar)
   names = names.concat('<table>')
   buttonIndex = 0;
   buttonScript = '<script>';
-  //folders = folderNames("/mnt/usb");
   fs.readdir(fullPath, (err, files) => {
     files.forEach(file => {
       if (!(String(file) === 'System Volume Information') && !(String(file) === '.Trash-1000')){
@@ -100,6 +104,7 @@ app.get('/files/:path?', (request, response) => {
           <td><a>", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
           <td><button id=\"button1-", buttonIndex, "\">Delete</button></td> \
+          <td><select name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
           </tr>");
 
           // File rename
@@ -139,6 +144,7 @@ app.get('/files/:path?', (request, response) => {
           <td><a href=\"", trail, "\">", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
           <td><button id=\"button1-", buttonIndex, "\">Delete</button></td> \
+          <td><select name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
           </tr>");
 
           // Folder rename
@@ -174,7 +180,6 @@ app.get('/files/:path?', (request, response) => {
       response.status(500).send('Something went wrong')
     }
     buttonScript = buttonScript.concat("console.log(\"Scripts executed\") </script>");
-    //names.concat(folders);
     names = names.replace("[SCRIPTHERE]", buttonScript);
     names = names.concat("</body>", footer);
     response.send(names);
@@ -206,23 +211,23 @@ app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
     if (error){}
     if (stderr) {}
   });
-})
+});
 
-// function folderNames(rootDir){
-//   const folders = [];
-//   function traverse(current) {
-//     const files = fs.readdirSync(current);
-//     files.forEach(file => {
-//       const filePath = path.join(current, file);
-//       const stats = fs.statSync(filePath);
-//       if (stats.isDirectory()){
-//         folders.push(filePath);
-//         traverse(filePath);
-//       }
-//     });
-//   }
-//   traverse(rootDir)
-//   return folders;
-// }
+function folderNames(rootDir){
+  const folders = [];
+  function traverse(current) {
+    const files = fs.readdirSync(current);
+    files.forEach(file => {
+      const filePath1 = filePath.join(current, file);
+      const stats = fs.statSync(filePath1);
+      if (stats.isDirectory() && !file.includes(".Trash-1000")){
+        folders.push(filePath1);
+        traverse(filePath1);
+      }
+    });
+  }
+  traverse(rootDir)
+  return folders;
+}
 
 app.listen(process.env.PORT || 3000, () => console.log('Online'))
