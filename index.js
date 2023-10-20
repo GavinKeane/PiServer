@@ -2,7 +2,8 @@ const express = require('express');
 const fs = require('fs');
 const filePath = require('path');
 const bodyParser = require('body-parser');
-const favicon = require('serve-favicon')
+//const fse = require('fs-extra');
+const favicon = require('serve-favicon');
 const app = express();
 app.use(express.json());
 app.use(favicon('./cabbage.ico'));
@@ -84,7 +85,6 @@ app.get('/files/:path?', (request, response) => {
     names = names.concat("<a> / </a><a href=\"/files/", subPath, "\">", pathArr[i], "</a>");
   }
 
-  // GitHub Test
   // List Files and Folders
   dropdownOptions = '';
   folders = folderNames("/mnt/usb");
@@ -234,14 +234,25 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
   if (type == "file" && action == "rename"){
       fs.rename("/".concat(href,fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href,newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => {});
   }
+  // Move file
+  if (type == "file" && action == "move"){
+    source = "/".concat(href, fileName);
+    destination = dest.concat("/", fileName);
+    fs.rename(source, destination, (err) => {});
+  }
   // Delete folder
   if (type == "folder" && action == "delete"){
     fs.rmdir("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "), {recursive: true}, (err) => {});
   }
+  // Rename folder
   if (type == "folder" && action == "rename"){
     fs.rename("/".concat(href,fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href,newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => {});
   }
-  res.status(200).send("file: ".concat("/", href, fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", dest));
+  // Move folder
+  if (type == "file" && action == "move"){
+    
+  }
+  res.status(200).send("file: ".concat("/", href, fileName, " | filename: ", fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", dest));
 });
 
 app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
