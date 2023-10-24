@@ -1,8 +1,8 @@
 const express = require('express');
 const fs = require('fs');
+const fsE = require('fs-extra');
 const filePath = require('path');
 const bodyParser = require('body-parser');
-//const fse = require('fs-extra');
 const favicon = require('serve-favicon');
 const app = express();
 app.use(express.json());
@@ -15,6 +15,12 @@ trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh",
 if (trans_status.includes("no")){
   execs.exec("transmission-gtk&");
 }
+
+var ex = require('child_process');
+try{
+delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache\"", {timeout: 10000}).toString();
+}catch{}
+
 const header = '<!DOCTYPE html><html><head> \
 <title>Cabbage Connect</title> \
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> \
@@ -98,9 +104,9 @@ app.get('/files/:path?', (request, response) => {
   fs.readdir(fullPath, (err, files) => {
     files.forEach(file => {
       if (!(String(file) === 'System Volume Information') && !(String(file) === '.Trash-1000')){
-
+        isFile = fs.statSync(filePath.join(fullPath, file)).isFile();
         // File
-        if (filePath.extname(file).length > 0){
+        if (isFile){
           names = names.concat("<tr> \
           <td><a>", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
@@ -249,11 +255,30 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
     fs.rename("/".concat(href,fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href,newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => {});
   }
   // Move folder
-  if (type == "file" && action == "move"){
-    
+  if (type == "folder" && action == "move"){
+    s = "/".concat(href, fileName);
+    d = dest;
+    moveFolder(s, filePath.join(d, filePath.basename(s)));
   }
   res.status(200).send("file: ".concat("/", href, fileName, " | filename: ", fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", dest));
 });
+
+function moveFolder(s, d){
+  const items = fs.readdirSync(s);
+  if (!fs.existsSync(d)){
+    fs.mkdirSync(d);
+  }
+  items.forEach((item) => {
+    const sItemPath = filePath.join(s, item);
+    const dItemPath = filePath.join(d, item);
+    if (fs.lstatSync(sItemPath).isDirectory()){
+      moveFolder(sItemPath, dItemPath);
+    }else{
+      fs.renameSync(sItemPath, dItemPath);
+    }
+  });
+  fs.rmdirSync(s);
+}
 
 app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
   const { exec } = require('child_process');
