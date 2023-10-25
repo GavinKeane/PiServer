@@ -1,14 +1,11 @@
 usb/
   .Trash-1000/
     expunged/
-
     files/
       test in here/
-
     info/
       test in here.trashinfo
   Downloads/
-
   Movies/
     27 Dresses.mp4
     A Clockwork Orange.mp4

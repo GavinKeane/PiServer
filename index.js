@@ -323,9 +323,11 @@ function generateFileList(rootFolder, indent = ''){
     const isDirectory = fs.statSync(itemPath).isDirectory();
     structureString += `${indent}${isDirectory ? item + '/' : item}`;
     if (isDirectory){
-      structureString += '\n';
       const substructure = generateFileList(itemPath, `${indent}  `);
-      structureString += substructure;
+      if (substructure.length > 0){
+        structureString += '\n';
+        structureString += substructure;
+      }
     }
     if (index < items.length - 1){
       structureString += '\n';
