@@ -16,6 +16,10 @@ if (trans_status.includes("no")){
   execs.exec("transmission-gtk&");
 }
 
+const fileListFile = '/home/gavin/Documents/project/files.txt';
+const fileList = generateFileList('/mnt');
+fs.writeFileSync(fileListFile, fileList);
+
 var ex = require('child_process');
 try{
 delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache\"", {timeout: 10000}).toString();
@@ -310,6 +314,25 @@ app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
     if (stderr) {}
   });
 });
+
+function generateFileList(rootFolder, indent = ''){
+  const items = fs.readdirSync(rootFolder);
+  let structureString = '';
+  items.forEach((item, index) => {
+    const itemPath = filePath.join(rootFolder, item);
+    const isDirectory = fs.statSync(itemPath).isDirectory();
+    structureString += `${indent}${isDirectory ? item + '/' : item}`;
+    if (isDirectory){
+      structureString += '\n';
+      const substructure = generateFileList(itemPath, `${indent}  `);
+      structureString += substructure;
+    }
+    if (index < items.length - 1){
+      structureString += '\n';
+    }
+  });
+  return structureString;
+}
 
 function folderNames(rootDir){
   const folders = [];
