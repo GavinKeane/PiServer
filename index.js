@@ -45,14 +45,14 @@ app.get('/', (request, response) => {
   wind = '';
   trans ='';
   if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")){
-    wind = "<div>Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(wind_fire, "</div>");
+    wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(wind_fire, "</div>");
   }else{
-    wind = "<div>Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(wind_fire, "</div>");
+    wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(wind_fire, "</div>");
   }
   if (trans_status.includes("yes")){
-   trans = "<div>Transmission is <span class=\"good\">running</span></div>";
+   trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
   }else if (trans_status.includes("no")){
-   trans = "<div>Transmission is <span class=\"bad\">not running</span></div>";
+   trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
   }
   text = header.concat('<body> \
   <div><button id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
