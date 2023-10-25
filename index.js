@@ -72,7 +72,7 @@ app.get('/files/:path?', (request, response) => {
   if (typeof request.params.path !== "undefined" && String(request.params.path).includes("..")){
     response.status(500).send('Something went wrong');
   }
-  names = header.concat('<body><div>Current Directory</div>');
+  names = header.concat('<body><div><a href="/">Home</a><div>Current Directory</div>');
   root = '/mnt/usb/';
   rawPathVar = typeof request.params.path !== "undefined" ? String(request.params.path) : '';
   pathVar = typeof request.params.path !== "undefined" ? String(request.params.path).replace(/\+/g, '/').replace(/\%20/g, ' ') : '';
@@ -90,6 +90,9 @@ app.get('/files/:path?', (request, response) => {
     }
     names = names.concat("<a> / </a><a href=\"/files/", subPath, "\">", pathArr[i], "</a>");
   }
+
+  //New folder button
+  names = names.concat("<div><button id=\"newfolder\">New Folder</button></div>");
 
   // List Files and Folders
   dropdownOptions = '';
@@ -213,6 +216,19 @@ app.get('/files/:path?', (request, response) => {
         }
       }
     });
+    // File rename
+    buttonScript = buttonScript.concat("$(document).ready(function () { \
+      $(\"#newfolder\").click(function () { \
+        newName = prompt(\"Enter a name for the new folder\"); \
+        if(newName != null){ \
+          $.post(\"/buttonPress\", { \
+          pressed: \"", root.concat(pathVar), "\", \
+          type: \"folder\", \
+          name: newName, \
+          href: window.location.href, \
+          action: \"newfolder\" }, \
+          function (data, status) {console.log(data);});} \
+        else{}});});");
     if (err) {
       response.status(500).send('Something went wrong')
     }
@@ -259,6 +275,13 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
     s = "/".concat(href, fileName);
     d = dest;
     moveFolder(s, filePath.join(d, filePath.basename(s)));
+  }
+  // New folder
+  if (type == "folder" && action == "newfolder"){
+    loc = filePath.join(fileName, newName);
+    try{
+      fs.mkdirSync(loc);
+    }catch{}
   }
   res.status(200).send("file: ".concat("/", href, fileName, " | filename: ", fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", dest));
 });
