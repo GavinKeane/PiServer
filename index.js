@@ -72,13 +72,13 @@ app.get('/files/:path?', (request, response) => {
   if (typeof request.params.path !== "undefined" && String(request.params.path).includes("..")){
     response.status(500).send('Something went wrong');
   }
-  names = header.concat('<body><div><a href="/">Home</a><div>Current Directory</div>');
+  names = header.concat('<body><div style="margin-bottom: 12px;"><a href="/">Home</a></div><div>Current Directory</div>');
   root = '/mnt/usb/';
   rawPathVar = typeof request.params.path !== "undefined" ? String(request.params.path) : '';
   pathVar = typeof request.params.path !== "undefined" ? String(request.params.path).replace(/\+/g, '/').replace(/\%20/g, ' ') : '';
 
   // File Path with links
-  names = names.concat('<a>/ </a><a href=\"/files/\">root</a>');
+  names = names.concat('<div style="margin-bottom:12px;"><a>/ </a><a href=\"/files/\">root</a>');
   pathArr = typeof request.params.path !== "undefined" ? request.params.path.split("+") : '';
   for (let i = 0; i < pathArr.length; i++){
     subPath = '';
@@ -92,7 +92,7 @@ app.get('/files/:path?', (request, response) => {
   }
 
   //New folder button
-  names = names.concat("<div><button id=\"newfolder\">New Folder</button></div>");
+  names = names.concat("</div><div><button id=\"newfolder\">New Folder</button></div>");
 
   // List Files and Folders
   dropdownOptions = '';
