@@ -320,17 +320,19 @@ function generateFileList(rootFolder, indent = ''){
   let structureString = '';
   items.forEach((item, index) => {
     const itemPath = filePath.join(rootFolder, item);
-    const isDirectory = fs.statSync(itemPath).isDirectory();
-    structureString += `${indent}${isDirectory ? item + '/' : item}`;
-    if (isDirectory){
-      const substructure = generateFileList(itemPath, `${indent}  `);
-      if (substructure.length > 0){
-        structureString += '\n';
-        structureString += substructure;
+      if (!itemPath.includes(".Trash-1000")){
+      const isDirectory = fs.statSync(itemPath).isDirectory();
+      structureString += `${indent}${isDirectory ? item + '/' : item}`;
+      if (isDirectory){
+        const substructure = generateFileList(itemPath, `${indent}  `);
+        if (substructure.length > 0){
+          structureString += '\n';
+          structureString += substructure;
+        }
       }
-    }
-    if (index < items.length - 1){
-      structureString += '\n';
+      if (index < items.length - 1){
+        structureString += '\n';
+      }
     }
   });
   return structureString;
