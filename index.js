@@ -57,6 +57,7 @@ app.get('/', (request, response) => {
   text = header.concat('<body> \
   <div><button id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
+  <div><a href="/search/">Pirate Search</a></div> \
   <div><a href=\"http://192.168.50.156:9095\" target=\"_blank">Transmission</a></div> \
   </body>');
 
@@ -288,6 +289,11 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
     }catch{}
   }
   res.status(200).send("file: ".concat("/", href, fileName, " | filename: ", fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", dest));
+});
+
+app.get('/search/:terms?', (request, response) => {
+  terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
+  response.send("This is the search page! Your search terms were: ".concat(terms));
 });
 
 function moveFolder(s, d){

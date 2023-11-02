@@ -78,6 +78,7 @@ usb/
     The Royal Tenenbaums.mp4
     The Secret Life of Walter Mitty.mp4
     The Shawshank Redemption.mp4
+    The Shining.mp4
     The Silence of the Lambs.mp4
     The Social Network.mp4
     The Sound of Music.mp4
