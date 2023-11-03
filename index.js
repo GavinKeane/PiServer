@@ -293,7 +293,17 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
 
 app.get('/search/:terms?', (request, response) => {
   terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
-  response.send("This is the search page! Your search terms were: ".concat(terms));
+  text = header.concat("<body> \
+    <input type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
+    <button onclick=\"searchRedirect()\">Search</button> \
+    <script> \
+    function searchRedirect() { \
+      var searchTerms = document.getElementById('search').value; \
+      if (searchTerms !== '') { \
+        window.location.href = \"/search/\".concat(searchTerms); \
+      }}</script></body>"
+  ).replace("[SCRIPTHERE]","");
+  response.send(text);
 });
 
 function moveFolder(s, d){
