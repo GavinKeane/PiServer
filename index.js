@@ -293,7 +293,7 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
 
 app.get('/search/:terms?', (request, response) => {
   terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
-  text = header.concat("<body> \
+  text = header.concat("<body><div><a href="/">Home</a></div> \
     <input type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
     <button onclick=\"searchRedirect()\">Search</button> \
     <script> \

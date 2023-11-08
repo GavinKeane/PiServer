@@ -40,6 +40,7 @@ usb/
     K-PAX.mp4
     Kate & Leopold.mp4
     Land of the Lost.mp4
+    Long Shot.mp4
     Looper.mp4
     Me Before You.mp4
     Memento.mp4
@@ -73,6 +74,7 @@ usb/
     The Iron Giant.mkv
     The Last Song.mp4
     The Lion King (2019).mp4
+    The Longest Ride.mp4
     The Notebook.mp4
     The Prestige.mp4
     The Royal Tenenbaums.mp4
@@ -88,6 +90,11 @@ usb/
     Transformers.mp4
     Zero Effect.mp4
   TV/
+    All The Light We Cannot See - Season 1/
+      All The Light We Cannot See S01E01.mp4
+      All The Light We Cannot See S01E02.mp4
+      All The Light We Cannot See S01E03.mp4
+      All The Light We Cannot See S01E04.mp4
     Community/
       Season 1/
         S01E01 - Pilot.mkv
