@@ -8,6 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
+const http = require('http');
 output1 = '';
 var execs = require('child_process');
 
@@ -21,6 +22,7 @@ const fileList = generateFileList('/mnt');
 fs.writeFileSync(fileListFile, fileList);
 
 var ex = require('child_process');
+const { url } = require('inspector');
 try{
 delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache\"", {timeout: 10000}).toString();
 }catch{}
@@ -292,8 +294,9 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
 });
 
 app.get('/search/:terms?', (request, response) => {
+  result = '';
   terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
-  text = header.concat("<body><div><a href="/">Home</a></div> \
+  text = header.concat("<body><div><a style=\"margin-bottom: 12px;\" href=\"/\">Home</a></div> \
     <input type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
     <button onclick=\"searchRedirect()\">Search</button> \
     <script> \
@@ -301,8 +304,10 @@ app.get('/search/:terms?', (request, response) => {
       var searchTerms = document.getElementById('search').value; \
       if (searchTerms !== '') { \
         window.location.href = \"/search/\".concat(searchTerms); \
-      }}</script></body>"
+      }}</script>"
   ).replace("[SCRIPTHERE]","");
+  const url = "https://thepiratebay.org/search.php?q=".concat(terms).replace(" ", "%20");
+  text = text.concat("</body>");
   response.send(text);
 });
 
