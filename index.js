@@ -24,6 +24,7 @@ fs.writeFileSync(fileListFile, fileList);
 var ex = require('child_process');
 const { url } = require('inspector');
 const { Console } = require('console');
+const { allowedNodeEnvironmentFlags } = require('process');
 try{
 delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache\"", {timeout: 10000}).toString();
 }catch{}
@@ -308,29 +309,44 @@ app.get('/search/:terms?', (request, response) => {
       }}</script>"
   ).replace("[SCRIPTHERE]","");
   result = '';
-  const baseUrl = "http://thepiratebay.org";
-  const query = terms;//.replace(" ", "%20");
+  const baseUrl = "http://www.thepiratebay.org";
+  const query = terms;
   console.log(query);
-  run(baseUrl, query);
-  text = text.concat("<pre>", result, "</pre>");
-  text = text.concat("</body>");
-  response.send(text);
+  run(baseUrl, query).then(() => {
+    result = html1;
+    resultSlice = result.split("<span class=\"list-item item-type\">");
+    allItemsNameMagSeedLeech = [];
+    for (let items = 1; items < resultSlice.length && items < 15; items++){
+      nameMagSeedLeech = [];
+      cut1 = resultSlice[items].split("<span class=\"list-item item-name item-title\"><a href=")[1].split("\">")[1];
+      nameMagSeedLeech[0] = cut1.split('<')[0];
+      nameMagSeedLeech[1] = "magnet".concat(resultSlice[items].split("href=\"magnet")[1].split("\">")[0]).replace("&amp;", "&");
+      nameMagSeedLeech[2] = resultSlice[items].split("list-item item-seed\">")[1].split("<")[0].replace("&nbsp;", "");
+      nameMagSeedLeech[3] = resultSlice[items].split("list-item item-leech\">")[1].split("<")[0].replace("&nbsp;", "");
+      allItemsNameMagSeedLeech[items] = nameMagSeedLeech;
+    }
+    console.log(allItemsNameMagSeedLeech);
+    text = text.concat("</body>");
+    console.log("this already happened")
+    response.send(text);
+  });
 });
 
+html1 = '';
+
 async function run(baseUrl, query){
-  const browser = await puppeteer.launch({
-    headless: true,
-    executablePath: '/usr/bin/chromium-browser',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
-  const page = await browser.newPage();
-  await page.goto(`${baseUrl}/search?q=${encodeURIComponent(query)}`);
-
-  const htmlString = await page.content();
-
-  console.log(htmlString);
-  await browser.close();
-  console.log("IT WORKS SO FAR");
+  if (query !== "[blank]"){
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: '/usr/bin/chromium-browser',
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+    const page = await browser.newPage();
+    await page.goto(`${baseUrl}/search.php?q=${encodeURIComponent(query)}`);
+    const htmlString = await page.content();
+    await browser.close();
+    html1 = htmlString;
+  }
 }
 
 
