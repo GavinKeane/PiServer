@@ -319,14 +319,31 @@ app.get('/search/:terms?', (request, response) => {
     for (let items = 1; items < resultSlice.length && items < 15; items++){
       nameMagSeedLeech = [];
       cut1 = resultSlice[items].split("<span class=\"list-item item-name item-title\"><a href=")[1].split("\">")[1];
+      console.log(resultSlice[items]);
       nameMagSeedLeech[0] = cut1.split('<')[0];
       nameMagSeedLeech[1] = "magnet".concat(resultSlice[items].split("href=\"magnet")[1].split("\">")[0]).replace("&amp;", "&");
-      nameMagSeedLeech[2] = resultSlice[items].split("list-item item-seed\">")[1].split("<")[0].replace("&nbsp;", "");
-      nameMagSeedLeech[3] = resultSlice[items].split("list-item item-leech\">")[1].split("<")[0].replace("&nbsp;", "");
-      allItemsNameMagSeedLeech[items] = nameMagSeedLeech;
+      nameMagSeedLeech[2] = resultSlice[items].split("list-item item-size\">")[1].split("<")[0].replace("&nbsp;", "");
+      nameMagSeedLeech[3] = resultSlice[items].split("list-item item-seed\">")[1].split("<")[0].replace("&nbsp;", "");
+      nameMagSeedLeech[4] = resultSlice[items].split("list-item item-leech\">")[1].split("<")[0].replace("&nbsp;", "");
+      if (!resultSlice[items].includes(":500\">Porn")){
+        allItemsNameMagSeedLeech[items] = nameMagSeedLeech;
+      }
     }
     console.log(allItemsNameMagSeedLeech);
-    text = text.concat("</body>");
+    text = text.concat("<div><table><tr><th>Name</th><th>Size</th><th>Seeds</th><th>Leeches</th></tr>");
+    for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++){
+      try{
+        text = text.concat("<tr>");
+        for (let ind = 0; ind < 5; ind++){
+          text = text.concat("<td>", allItemsNameMagSeedLeech[tors][ind], "</td>");
+          if (ind == 0){
+            ind++;
+          }
+        }
+        text = text.concat("</tr>");
+    }catch(error){}
+    }
+    text = text.concat("</table></div></body>");
     console.log("this already happened")
     response.send(text);
   });
