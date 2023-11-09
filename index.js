@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
-const http = require('http');
+const puppeteer = require('puppeteer');
 output1 = '';
 var execs = require('child_process');
 
@@ -23,6 +23,7 @@ fs.writeFileSync(fileListFile, fileList);
 
 var ex = require('child_process');
 const { url } = require('inspector');
+const { Console } = require('console');
 try{
 delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache\"", {timeout: 10000}).toString();
 }catch{}
@@ -306,10 +307,32 @@ app.get('/search/:terms?', (request, response) => {
         window.location.href = \"/search/\".concat(searchTerms); \
       }}</script>"
   ).replace("[SCRIPTHERE]","");
-  const url = "https://thepiratebay.org/search.php?q=".concat(terms).replace(" ", "%20");
+  result = '';
+  const baseUrl = "http://thepiratebay.org";
+  const query = terms;//.replace(" ", "%20");
+  console.log(query);
+  run(baseUrl, query);
+  text = text.concat("<pre>", result, "</pre>");
   text = text.concat("</body>");
   response.send(text);
 });
+
+async function run(baseUrl, query){
+  const browser = await puppeteer.launch({
+    headless: true,
+    executablePath: '/usr/bin/chromium-browser',
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+  const page = await browser.newPage();
+  await page.goto(`${baseUrl}/search?q=${encodeURIComponent(query)}`);
+
+  const htmlString = await page.content();
+
+  console.log(htmlString);
+  await browser.close();
+  console.log("IT WORKS SO FAR");
+}
+
 
 function moveFolder(s, d){
   const items = fs.readdirSync(s);
