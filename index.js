@@ -306,7 +306,22 @@ app.get('/search/:terms?', (request, response) => {
       var searchTerms = document.getElementById('search').value; \
       if (searchTerms !== '') { \
         window.location.href = \"/search/\".concat(searchTerms); \
-      }}</script>"
+      }} \
+      function copyToClip(magnet) { \
+        var textarea = document.createElement('textarea'); \
+        textarea.value = magnet; \
+        textarea.style.position = 'fixed'; \
+        textarea.style.top = '0'; \
+        textarea.style.left = '0'; \
+        textarea.style.opacity = '0'; \
+        document.body.appendChild(textarea); \
+        textarea.focus(); \
+        textarea.select(); \
+        textarea.setSelectionRange(0, 99999); \
+        document.execCommand('copy'); \
+        document.body.removeChild(textarea); \
+      } \
+      </script>"
   ).replace("[SCRIPTHERE]","");
   result = '';
   const baseUrl = "http://www.thepiratebay.org";
@@ -334,7 +349,8 @@ app.get('/search/:terms?', (request, response) => {
     for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++){
       try{
         text = text.concat("<tr>");
-        for (let ind = 0; ind < 5; ind++){
+        text = text.concat("<td><button onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</button></td>");
+        for (let ind = 2; ind < 5; ind++){
           text = text.concat("<td>", allItemsNameMagSeedLeech[tors][ind], "</td>");
           if (ind == 0){
             ind++;
