@@ -25,6 +25,11 @@ while (localIP === "1.1.1.1") {
       }
     }
   }
+  nonBlockingSleep(2000);
+}
+
+function nonBlockingSleep(ms){
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
