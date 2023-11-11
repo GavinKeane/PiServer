@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
 const puppeteer = require('puppeteer');
+const ffs = require('fast-folder-size');
 output1 = '';
 var execs = require('child_process');
 const networkInterfaces = os.networkInterfaces();
@@ -35,7 +36,17 @@ const { url } = require('inspector');
 const { Console } = require('console');
 const { allowedNodeEnvironmentFlags } = require('process');
 try{
-delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache\"", {timeout: 10000}).toString();
+  const cachePath = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache';
+  ffs(cachePath, (err, size) => {
+    if (err){
+      console.error(err);
+    }else{
+      if (size > 4000000000){
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache\"", {timeout: 10000}).toString();
+      }
+      console.log(`Folder size: ${size}`);
+    }
+  })
 }catch{}
 
 const header = '<!DOCTYPE html><html><head> \
