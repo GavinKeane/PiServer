@@ -14,12 +14,15 @@ const ffs = require('fast-folder-size');
 output1 = '';
 var execs = require('child_process');
 const networkInterfaces = os.networkInterfaces();
-console.log(networkInterfaces);
-var localIP = "";
-try{
-  localIP = networkInterfaces['wlan0'][0].address;
-}catch(error){
-  localIP = networkInterfaces['eth0'][0].address;
+var localIP = "1.1.1.1";
+const interfaces = os.networkInterfaces();
+for (const key in interfaces){
+  for (const iface of interfaces[key]){
+    if (iface.family === 'IPv4' && !iface.internal && iface.address.startsWith('192.168.')){
+      localIP = iface.address;
+      console.log(`localIP evaluated to be: ${localIP}`);
+    }
+  }
 }
 
 trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", {timeout:10000}).toString();
@@ -84,6 +87,7 @@ app.get('/', (request, response) => {
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href="/search/">Pirate Search</a></div> \
   <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
+  <div><a href=\"http://', localIP, ':32400\" target=\"_blank">Plex Portal</a></div> \
   </body>');
 
   buttonScript = "<script>$(document).ready(function () { \
