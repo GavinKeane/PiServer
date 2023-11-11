@@ -16,17 +16,19 @@ var execs = require('child_process');
 const networkInterfaces = os.networkInterfaces();
 var localIP = "1.1.1.1";
 const interfaces = os.networkInterfaces();
-for (const key in interfaces){
-  for (const iface of interfaces[key]){
-    if (iface.family === 'IPv4' && !iface.internal && iface.address.startsWith('192.168.')){
-      localIP = iface.address;
-      console.log(`localIP evaluated to be: ${localIP}`);
+while (localIP === "1.1.1.1") {
+  for (const key in interfaces) {
+    for (const iface of interfaces[key]) {
+      if (iface.family === 'IPv4' && !iface.internal && iface.address.startsWith('192.168.')) {
+        localIP = iface.address;
+        console.log(`localIP evaluated to be: ${localIP}`);
+      }
     }
   }
 }
 
-trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", {timeout:10000}).toString();
-if (trans_status.includes("no")){
+trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
+if (trans_status.includes("no")) {
   execs.exec("transmission-gtk&");
 }
 
@@ -38,20 +40,20 @@ var ex = require('child_process');
 const { url } = require('inspector');
 const { Console } = require('console');
 const { allowedNodeEnvironmentFlags } = require('process');
-try{
+try {
   const cachePath = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache';
   ffs(cachePath, (err, size) => {
-    if (err){
+    if (err) {
       console.error(err);
-    }else{
-      if (size > 4500000000){
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", {timeout: 5000}).toString();
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", {timeout: 5000}).toString();
+    } else {
+      if (size > 4500000000) {
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", { timeout: 5000 }).toString();
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", { timeout: 5000 }).toString();
       }
       console.log(`Folder size: ${size}`);
     }
   })
-}catch{}
+} catch { }
 
 const header = '<!DOCTYPE html><html><head> \
 <title>Cabbage Connect</title> \
@@ -67,20 +69,20 @@ const footer = '</html>';
 // Landing
 app.get('/', (request, response) => {
   var execs = require('child_process');
-  wind_status = execs.execSync("windscribe status", {timeout: 5000}).toString();
-  wind_fire = execs.execSync("windscribe firewall", {timeout: 10000}).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
-  trans_status = execs.execSync("/home/gavin/Documents/project/check-trans.sh", {timeout: 5000}).toString();
+  wind_status = execs.execSync("windscribe status", { timeout: 5000 }).toString();
+  wind_fire = execs.execSync("windscribe firewall", { timeout: 10000 }).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
+  trans_status = execs.execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 5000 }).toString();
   wind = '';
-  trans ='';
-  if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")){
+  trans = '';
+  if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")) {
     wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(wind_fire, "</div>");
-  }else{
+  } else {
     wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(wind_fire, "</div>");
   }
-  if (trans_status.includes("yes")){
-   trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
-  }else if (trans_status.includes("no")){
-   trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
+  if (trans_status.includes("yes")) {
+    trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
+  } else if (trans_status.includes("no")) {
+    trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
   }
   text = header.concat('<body> \
   <div><button id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
@@ -103,7 +105,7 @@ app.get('/', (request, response) => {
 
 //File Browser
 app.get('/files/:path?', (request, response) => {
-  if (typeof request.params.path !== "undefined" && String(request.params.path).includes("..")){
+  if (typeof request.params.path !== "undefined" && String(request.params.path).includes("..")) {
     response.status(500).send('Something went wrong');
   }
   names = header.concat('<body><div style="margin-bottom: 12px;"><a href="/">Home</a></div><div>Current Directory</div>');
@@ -114,12 +116,12 @@ app.get('/files/:path?', (request, response) => {
   // File Path with links
   names = names.concat('<div style="margin-bottom:12px;"><a>/ </a><a href=\"/files/\">root</a>');
   pathArr = typeof request.params.path !== "undefined" ? request.params.path.split("+") : '';
-  for (let i = 0; i < pathArr.length; i++){
+  for (let i = 0; i < pathArr.length; i++) {
     subPath = '';
-    for (let j = 0; j <= i; j++){
+    for (let j = 0; j <= i; j++) {
       subPath = subPath.concat("+", pathArr[j]);
     }
-    if (subPath.startsWith("+")){
+    if (subPath.startsWith("+")) {
       subPath = subPath.slice(1);
     }
     names = names.concat("<a> / </a><a href=\"/files/", subPath, "\">", pathArr[i], "</a>");
@@ -140,10 +142,10 @@ app.get('/files/:path?', (request, response) => {
   buttonScript = '<script>';
   fs.readdir(fullPath, (err, files) => {
     files.forEach(file => {
-      if (!(String(file) === 'System Volume Information') && !(String(file) === '.Trash-1000')){
+      if (!(String(file) === 'System Volume Information') && !(String(file) === '.Trash-1000')) {
         isFile = fs.statSync(filePath.join(fullPath, file)).isFile();
         // File
-        if (isFile){
+        if (isFile) {
           names = names.concat("<tr> \
           <td><a>", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
@@ -193,10 +195,10 @@ app.get('/files/:path?', (request, response) => {
               else{}});});");
           buttonIndex++;
 
-        // Folder
-        }else{
+          // Folder
+        } else {
           trail = rawPathVar.concat("+", file);
-          if (trail.startsWith("+")){
+          if (trail.startsWith("+")) {
             trail = trail.slice(1);
           }
           names = names.concat("<tr> \
@@ -245,7 +247,7 @@ app.get('/files/:path?', (request, response) => {
                   destination: loc, \
                   action: \"move\" }, \
                 function (data, status) {console.log(data);});} \
-              else{}});});");   
+              else{}});});");
           buttonIndex++;
         }
       }
@@ -283,39 +285,39 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
   href = href.replace(/\+/g, "/").replace(/\%20/g, " ").concat("/");
   href = href.replace("//", "/");
   // Delete file
-  if (type == "file" && action == "delete"){
-      fs.unlinkSync("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "));
+  if (type == "file" && action == "delete") {
+    fs.unlinkSync("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "));
   }
   // Rename file
-  if (type == "file" && action == "rename"){
-      fs.rename("/".concat(href,fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href,newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => {});
+  if (type == "file" && action == "rename") {
+    fs.rename("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href, newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => { });
   }
   // Move file
-  if (type == "file" && action == "move"){
+  if (type == "file" && action == "move") {
     source = "/".concat(href, fileName);
     destination = dest.concat("/", fileName);
-    fs.rename(source, destination, (err) => {});
+    fs.rename(source, destination, (err) => { });
   }
   // Delete folder
-  if (type == "folder" && action == "delete"){
-    fs.rmdir("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "), {recursive: true}, (err) => {});
+  if (type == "folder" && action == "delete") {
+    fs.rmdir("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "), { recursive: true }, (err) => { });
   }
   // Rename folder
-  if (type == "folder" && action == "rename"){
-    fs.rename("/".concat(href,fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href,newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => {});
+  if (type == "folder" && action == "rename") {
+    fs.rename("/".concat(href, fileName).replace(/\+/g, "/").replace(/\%20/g, " "), "/".concat(href, newName).replace(/\+/g, "/").replace(/\%20/g, " "), () => { });
   }
   // Move folder
-  if (type == "folder" && action == "move"){
+  if (type == "folder" && action == "move") {
     s = "/".concat(href, fileName);
     d = dest;
     moveFolder(s, filePath.join(d, filePath.basename(s)));
   }
   // New folder
-  if (type == "folder" && action == "newfolder"){
+  if (type == "folder" && action == "newfolder") {
     loc = filePath.join(fileName, newName);
-    try{
+    try {
       fs.mkdirSync(loc);
-    }catch{}
+    } catch { }
   }
   res.status(200).send("file: ".concat("/", href, fileName, " | filename: ", fileName, " | type: ", type, " | newName: ", newName, " | action: ", action, " | URL: ", req.body.href, " | Destination: ", dest));
 });
@@ -349,7 +351,7 @@ app.get('/search/:terms?', (request, response) => {
         document.body.removeChild(textarea); \
       } \
       </script>"
-  ).replace("[SCRIPTHERE]","");
+  ).replace("[SCRIPTHERE]", "");
   result = '';
   const baseUrl = "http://www.thepiratebay.org";
   const query = terms;
@@ -358,7 +360,7 @@ app.get('/search/:terms?', (request, response) => {
     result = html1;
     resultSlice = result.split("<span class=\"list-item item-type\">");
     allItemsNameMagSeedLeech = [];
-    for (let items = 1; items < resultSlice.length && items < 25; items++){
+    for (let items = 1; items < resultSlice.length && items < 25; items++) {
       nameMagSeedLeech = [];
       cut1 = resultSlice[items].split("<span class=\"list-item item-name item-title\"><a href=")[1].split("\">")[1];
       //console.log(resultSlice[items]);
@@ -367,26 +369,26 @@ app.get('/search/:terms?', (request, response) => {
       nameMagSeedLeech[2] = resultSlice[items].split("list-item item-size\">")[1].split("<")[0].replace("&nbsp;", "").replace("i", "").replace("G", " G").replace("M", " M").replace("K", " K");
       nameMagSeedLeech[3] = resultSlice[items].split("list-item item-seed\">")[1].split("<")[0].replace("&nbsp;", "");
       nameMagSeedLeech[4] = resultSlice[items].split("list-item item-leech\">")[1].split("<")[0].replace("&nbsp;", "");
-      if (!resultSlice[items].includes(":500\">Porn")){
+      if (!resultSlice[items].includes(":500\">Porn")) {
         allItemsNameMagSeedLeech[items] = nameMagSeedLeech;
       }
     }
     console.log(allItemsNameMagSeedLeech);
     text = text.concat("<div><table><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
-    for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++){
-      try{
-        if (allItemsNameMagSeedLeech[tors][0] !== ""){
+    for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++) {
+      try {
+        if (allItemsNameMagSeedLeech[tors][0] !== "") {
           text = text.concat("<tr>");
           text = text.concat("<td style=\"text-align: left; padding-right: 12px;\"><a href=\"javascript:void(0)\" onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</a></td>");
-          for (let ind = 2; ind < 5; ind++){
+          for (let ind = 2; ind < 5; ind++) {
             text = text.concat("<td style=\"text-align: left; padding-right: 12px;\">", allItemsNameMagSeedLeech[tors][ind], "</td>");
-            if (ind == 0){
+            if (ind == 0) {
               ind++;
             }
           }
           text = text.concat("</tr>");
-      }
-    }catch(error){}
+        }
+      } catch (error) { }
     }
     text = text.concat("</table></div></body>");
     response.send(text);
@@ -395,8 +397,8 @@ app.get('/search/:terms?', (request, response) => {
 
 html1 = '';
 
-async function run(baseUrl, query){
-  if (query !== "[blank]"){
+async function run(baseUrl, query) {
+  if (query !== "[blank]") {
     const browser = await puppeteer.launch({
       headless: true,
       executablePath: '/usr/bin/chromium-browser',
@@ -411,17 +413,17 @@ async function run(baseUrl, query){
 }
 
 
-function moveFolder(s, d){
+function moveFolder(s, d) {
   const items = fs.readdirSync(s);
-  if (!fs.existsSync(d)){
+  if (!fs.existsSync(d)) {
     fs.mkdirSync(d);
   }
   items.forEach((item) => {
     const sItemPath = filePath.join(s, item);
     const dItemPath = filePath.join(d, item);
-    if (fs.lstatSync(sItemPath).isDirectory()){
+    if (fs.lstatSync(sItemPath).isDirectory()) {
       moveFolder(sItemPath, dItemPath);
-    }else{
+    } else {
       fs.renameSync(sItemPath, dItemPath);
     }
   });
@@ -431,27 +433,27 @@ function moveFolder(s, d){
 app.post("/reboot", bodyParser.urlencoded(), (req, res) => {
   const { exec } = require('child_process');
   exec("sudo reboot", (error, stdout, stderr) => {
-    if (error){}
-    if (stderr) {}
+    if (error) { }
+    if (stderr) { }
   });
 });
 
-function generateFileList(rootFolder, indent = ''){
+function generateFileList(rootFolder, indent = '') {
   const items = fs.readdirSync(rootFolder);
   let structureString = '';
   items.forEach((item, index) => {
     const itemPath = filePath.join(rootFolder, item);
-    if (!itemPath.includes(".Trash-1000")){
+    if (!itemPath.includes(".Trash-1000")) {
       const isDirectory = fs.statSync(itemPath).isDirectory();
       structureString += `${indent}${isDirectory ? item + '/' : item}`;
-      if (isDirectory){
+      if (isDirectory) {
         const substructure = generateFileList(itemPath, `${indent}  `);
-        if (substructure.length > 0){
+        if (substructure.length > 0) {
           structureString += '\n';
           structureString += substructure;
         }
       }
-      if (index < items.length - 1){
+      if (index < items.length - 1) {
         structureString += '\n';
       }
     }
@@ -459,14 +461,14 @@ function generateFileList(rootFolder, indent = ''){
   return structureString;
 }
 
-function folderNames(rootDir){
+function folderNames(rootDir) {
   const folders = [];
   function traverse(current) {
     const files = fs.readdirSync(current);
     files.forEach(file => {
       const filePath1 = filePath.join(current, file);
       const stats = fs.statSync(filePath1);
-      if (stats.isDirectory() && !file.includes(".Trash-1000")){
+      if (stats.isDirectory() && !file.includes(".Trash-1000")) {
         folders.push(filePath1);
         traverse(filePath1);
       }
