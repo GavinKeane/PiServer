@@ -11,34 +11,45 @@ app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
 const puppeteer = require('puppeteer');
 const ffs = require('fast-folder-size');
+const util = require('util');
+var ex = util.promisify(require('child_process').exec);
 output1 = '';
-var execs = require('child_process');
 const networkInterfaces = os.networkInterfaces();
-var localIP = "1.1.1.1";
+let localIP = "1.1.1.1";
 const interfaces = os.networkInterfaces();
-for (const key in interfaces) {
+const interfaceKeys = Object.keys(interfaces);
+console.log("THIS IS A SIMPLE TEST");
+for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
+  key = interfaceKeys[i];
   for (const iface of interfaces[key]) {
     if (iface.family === 'IPv4' && !iface.internal && iface.address.startsWith('192.168.')) {
       localIP = iface.address;
       console.log(`localIP evaluated to be: ${localIP}`);
     }
+    if (localIP !== "1.1.1.1"){
+      break;
+    }
+  }
+  if (localIP !== "1.1.1.1"){
+    break;
   }
 }
 if (localIP === "1.1.1.1"){
-  yo = exec.execSync("pm2 restart index", { timeout: 15000 }).toString();
+  console.log("It restarted");
+  yo = ex.execSync("pm2 restart index", { timeout: 1000 }).toString();
   return;
 }
 
-trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
+trans_status = ex.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
 if (trans_status.includes("no")) {
-  execs.exec("transmission-gtk&");
+  ex.exec("transmission-gtk&");
 }
 
 const fileListFile = '/home/gavin/Documents/project/files.txt';
 const fileList = generateFileList('/mnt');
 fs.writeFileSync(fileListFile, fileList);
 
-var ex = require('child_process');
+
 const { url } = require('inspector');
 const { Console } = require('console');
 const { allowedNodeEnvironmentFlags } = require('process');
@@ -68,12 +79,18 @@ const header = '<!DOCTYPE html><html><head> \
 </head>';
 const footer = '</html>';
 
+async function asyncCommandLine(command){
+  try{
+    const { stdout } = await ex.exec(command);
+    return stdout;
+  }catch{}
+}
+
 // Landing
 app.get('/', (request, response) => {
-  var execs = require('child_process');
-  wind_status = execs.execSync("windscribe status", { timeout: 15000 }).toString();
-  wind_fire = execs.execSync("windscribe firewall", { timeout: 15000 }).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
-  trans_status = execs.execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
+  wind_status = ex.execSync("windscribe status", { timeout: 15000 }).toString();
+  wind_fire = ex.execSync("windscribe firewall", { timeout: 15000 }).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
+  trans_status = ex.execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
   wind = '';
   trans = '';
   if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")) {
