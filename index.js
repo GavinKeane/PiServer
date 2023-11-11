@@ -16,20 +16,17 @@ var execs = require('child_process');
 const networkInterfaces = os.networkInterfaces();
 var localIP = "1.1.1.1";
 const interfaces = os.networkInterfaces();
-while (localIP === "1.1.1.1") {
-  for (const key in interfaces) {
-    for (const iface of interfaces[key]) {
-      if (iface.family === 'IPv4' && !iface.internal && iface.address.startsWith('192.168.')) {
-        localIP = iface.address;
-        console.log(`localIP evaluated to be: ${localIP}`);
-      }
+for (const key in interfaces) {
+  for (const iface of interfaces[key]) {
+    if (iface.family === 'IPv4' && !iface.internal && iface.address.startsWith('192.168.')) {
+      localIP = iface.address;
+      console.log(`localIP evaluated to be: ${localIP}`);
     }
   }
-  nonBlockingSleep(2000);
 }
-
-function nonBlockingSleep(ms){
-  return new Promise(resolve => setTimeout(resolve, ms));
+if (localIP === "1.1.1.1"){
+  yo = exec.execSync("pm2 restart index", { timeout: 15000 }).toString();
+  return;
 }
 
 trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
@@ -52,8 +49,8 @@ try {
       console.error(err);
     } else {
       if (size > 4500000000) {
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", { timeout: 5000 }).toString();
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", { timeout: 5000 }).toString();
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", { timeout: 15000 }).toString();
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", { timeout: 15000 }).toString();
       }
       console.log(`Folder size: ${size}`);
     }
@@ -74,9 +71,9 @@ const footer = '</html>';
 // Landing
 app.get('/', (request, response) => {
   var execs = require('child_process');
-  wind_status = execs.execSync("windscribe status", { timeout: 5000 }).toString();
-  wind_fire = execs.execSync("windscribe firewall", { timeout: 10000 }).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
-  trans_status = execs.execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 5000 }).toString();
+  wind_status = execs.execSync("windscribe status", { timeout: 15000 }).toString();
+  wind_fire = execs.execSync("windscribe firewall", { timeout: 15000 }).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
+  trans_status = execs.execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
   wind = '';
   trans = '';
   if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")) {
