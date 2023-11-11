@@ -342,13 +342,13 @@ app.get('/search/:terms?', (request, response) => {
     result = html1;
     resultSlice = result.split("<span class=\"list-item item-type\">");
     allItemsNameMagSeedLeech = [];
-    for (let items = 1; items < resultSlice.length && items < 15; items++){
+    for (let items = 1; items < resultSlice.length && items < 25; items++){
       nameMagSeedLeech = [];
       cut1 = resultSlice[items].split("<span class=\"list-item item-name item-title\"><a href=")[1].split("\">")[1];
       console.log(resultSlice[items]);
       nameMagSeedLeech[0] = cut1.split('<')[0];
       nameMagSeedLeech[1] = "magnet".concat(resultSlice[items].split("href=\"magnet")[1].split("\">")[0]).replace("&amp;", "&");
-      nameMagSeedLeech[2] = resultSlice[items].split("list-item item-size\">")[1].split("<")[0].replace("&nbsp;", "");
+      nameMagSeedLeech[2] = resultSlice[items].split("list-item item-size\">")[1].split("<")[0].replace("&nbsp;", "").replace("i", "").replace("G", " G").replace("M", " M").replace("K", " K");
       nameMagSeedLeech[3] = resultSlice[items].split("list-item item-seed\">")[1].split("<")[0].replace("&nbsp;", "");
       nameMagSeedLeech[4] = resultSlice[items].split("list-item item-leech\">")[1].split("<")[0].replace("&nbsp;", "");
       if (!resultSlice[items].includes(":500\">Porn")){
@@ -359,19 +359,20 @@ app.get('/search/:terms?', (request, response) => {
     text = text.concat("<div><table><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
     for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++){
       try{
-        text = text.concat("<tr>");
-        text = text.concat("<td style=\"text-align: left; padding-right: 12px;\"><a href=\"javascript:void(0)\" onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</a></td>");
-        for (let ind = 2; ind < 5; ind++){
-          text = text.concat("<td style=\"text-align: left; padding-right: 12px;\">", allItemsNameMagSeedLeech[tors][ind], "</td>");
-          if (ind == 0){
-            ind++;
+        if (allItemsNameMagSeedLeech[tors][0] !== ""){
+          text = text.concat("<tr>");
+          text = text.concat("<td style=\"text-align: left; padding-right: 12px;\"><a href=\"javascript:void(0)\" onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</a></td>");
+          for (let ind = 2; ind < 5; ind++){
+            text = text.concat("<td style=\"text-align: left; padding-right: 12px;\">", allItemsNameMagSeedLeech[tors][ind], "</td>");
+            if (ind == 0){
+              ind++;
+            }
           }
-        }
-        text = text.concat("</tr>");
+          text = text.concat("</tr>");
+      }
     }catch(error){}
     }
     text = text.concat("</table></div></body>");
-    console.log("this already happened")
     response.send(text);
   });
 });
