@@ -81,8 +81,8 @@ const footer = '</html>';
 // Landing
 app.get('/', (request, response) => {
   //wind_status = execSync("windscribe status", { timeout: 15000 }).toString();
-  comm = execSync("windscribe firewall && windscribe status && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();//.includes("Firewall mode: on") ? "CONNECTED<span class=\"good\">on</span>" : "DISCONNECTED<span class=\"bad\">off</span>";
-  
+  comm = execSync("windscribe firewall && windscribe status && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
+  //.includes("Firewall mode: on") ? "CONNECTED<span class=\"good\">on</span>" : "DISCONNECTED<span class=\"bad\">off</span>";
   //trans_status = execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
   wind = '';
   trans = '';
