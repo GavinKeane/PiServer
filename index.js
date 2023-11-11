@@ -45,8 +45,8 @@ try{
       console.error(err);
     }else{
       if (size > 4500000000){
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", {timeout: 10000}).toString();
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", {timeout: 10000}).toString();
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", {timeout: 5000}).toString();
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", {timeout: 5000}).toString();
       }
       console.log(`Folder size: ${size}`);
     }
@@ -67,9 +67,9 @@ const footer = '</html>';
 // Landing
 app.get('/', (request, response) => {
   var execs = require('child_process');
-  wind_status = execs.execSync("windscribe status", {timeout: 10000}).toString();
+  wind_status = execs.execSync("windscribe status", {timeout: 5000}).toString();
   wind_fire = execs.execSync("windscribe firewall", {timeout: 10000}).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
-  trans_status = execs.execSync("/home/gavin/Desktop/project/check-trans.sh", {timeout: 10000}).toString();
+  trans_status = execs.execSync("/home/gavin/Documents/project/check-trans.sh", {timeout: 5000}).toString();
   wind = '';
   trans ='';
   if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")){
