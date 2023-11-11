@@ -11,8 +11,7 @@ app.use(favicon('./cabbage.ico'));
 var parser = bodyParser.json();
 const puppeteer = require('puppeteer');
 const ffs = require('fast-folder-size');
-const util = require('util');
-var ex = util.promisify(require('child_process').exec);
+const { execSync } = require('child_process');
 output1 = '';
 const networkInterfaces = os.networkInterfaces();
 let localIP = "1.1.1.1";
@@ -36,13 +35,13 @@ for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
 }
 if (localIP === "1.1.1.1"){
   console.log("It restarted");
-  yo = ex.execSync("pm2 restart index", { timeout: 1000 }).toString();
+  yo = execSync("pm2 restart index", { timeout: 1000 }).toString();
   return;
 }
 
-trans_status = ex.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
+trans_status = execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
 if (trans_status.includes("no")) {
-  ex.exec("transmission-gtk&");
+  execSync("transmission-gtk&");
 }
 
 const fileListFile = '/home/gavin/Documents/project/files.txt';
@@ -60,8 +59,8 @@ try {
       console.error(err);
     } else {
       if (size > 4500000000) {
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", { timeout: 15000 }).toString();
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", { timeout: 15000 }).toString();
+        delCache = execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", { timeout: 15000 }).toString();
+        delCache = execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", { timeout: 15000 }).toString();
       }
       console.log(`Folder size: ${size}`);
     }
@@ -79,28 +78,28 @@ const header = '<!DOCTYPE html><html><head> \
 </head>';
 const footer = '</html>';
 
-async function asyncCommandLine(command){
-  try{
-    const { stdout } = await ex.exec(command);
-    return stdout;
-  }catch{}
-}
-
 // Landing
 app.get('/', (request, response) => {
-  wind_status = ex.execSync("windscribe status", { timeout: 15000 }).toString();
-  wind_fire = ex.execSync("windscribe firewall", { timeout: 15000 }).toString().includes("Firewall mode: on") ? "<span class=\"good\">on</span>" : "<span class=\"bad\">off</span>";
-  trans_status = ex.execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
+  //wind_status = execSync("windscribe status", { timeout: 15000 }).toString();
+  comm = execSync("windscribe firewall && windscribe status && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();//.includes("Firewall mode: on") ? "CONNECTED<span class=\"good\">on</span>" : "DISCONNECTED<span class=\"bad\">off</span>";
+  
+  //trans_status = execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
   wind = '';
   trans = '';
-  if (wind_status.includes("CONNECTED") && !wind_status.includes("DISCONNECTED")) {
-    wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(wind_fire, "</div>");
-  } else {
-    wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(wind_fire, "</div>");
+  firewall = '';
+  if (comm.includes("Firewall mode: on")){
+    firewall = "<span class=\"good\">on</span>" ;
+  }else{
+    firewall = "<span class=\"bad\">off</span>";
   }
-  if (trans_status.includes("yes")) {
+  if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
+    wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(firewall, "</div>");
+  } else {
+    wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(firewall, "</div>");
+  }
+  if (comm.includes("tyes")) {
     trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
-  } else if (trans_status.includes("no")) {
+  } else if (comm.includes("tno")) {
     trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
   }
   text = header.concat('<body> \

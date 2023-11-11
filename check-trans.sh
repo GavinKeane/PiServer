@@ -1,6 +1,6 @@
 #!/bin/bash
 if pgrep -x "transmission-gt" &>/dev/null; then
-	echo "yes"
+	echo "tyes"
 else
-	echo "no"
+	echo "tno"
 fi
