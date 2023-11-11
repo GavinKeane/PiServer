@@ -41,8 +41,9 @@ try{
     if (err){
       console.error(err);
     }else{
-      if (size > 4000000000){
-        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache\"", {timeout: 10000}).toString();
+      if (size > 4500000000){
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", {timeout: 10000}).toString();
+        delCache = ex.execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", {timeout: 10000}).toString();
       }
       console.log(`Folder size: ${size}`);
     }
