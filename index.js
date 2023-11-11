@@ -337,7 +337,7 @@ app.get('/search/:terms?', (request, response) => {
   result = '';
   const baseUrl = "http://www.thepiratebay.org";
   const query = terms;
-  console.log(query);
+  //console.log(query);
   run(baseUrl, query).then(() => {
     result = html1;
     resultSlice = result.split("<span class=\"list-item item-type\">");
