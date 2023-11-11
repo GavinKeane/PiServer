@@ -32,6 +32,7 @@ usb/
       Harry Potter and the Order of the Phoenix.mp4
       Harry Potter and the Prisoner of Azkaban.mp4
       Harry Potter and the Sorcerers Stone.mp4
+    Hitch.mp4
     Hocus Pocus 2.mp4
     Inception.mp4
     Insomnia.mp4
