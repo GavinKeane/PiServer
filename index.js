@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const os = require('os');
 const fsE = require('fs-extra');
 const filePath = require('path');
 const bodyParser = require('body-parser');
@@ -11,6 +12,14 @@ var parser = bodyParser.json();
 const puppeteer = require('puppeteer');
 output1 = '';
 var execs = require('child_process');
+const networkInterfaces = os.networkInterfaces();
+console.log(networkInterfaces);
+var localIP = "";
+try{
+  localIP = networkInterfaces['wlan0'][0].address;
+}catch(error){
+  localIP = networkInterfaces['eth0'][0].address;
+}
 
 trans_status = execs.execSync("sudo /home/gavin/Desktop/project/check-trans.sh", {timeout:10000}).toString();
 if (trans_status.includes("no")){
@@ -62,7 +71,7 @@ app.get('/', (request, response) => {
   <div><button id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href="/search/">Pirate Search</a></div> \
-  <div><a href=\"http://192.168.50.156:9095\" target=\"_blank">Transmission</a></div> \
+  <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
   </body>');
 
   buttonScript = "<script>$(document).ready(function () { \
@@ -298,7 +307,9 @@ app.post("/buttonPress", bodyParser.urlencoded(), (req, res) => {
 app.get('/search/:terms?', (request, response) => {
   result = '';
   terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
-  text = header.concat("<body><div><a style=\"margin-bottom: 12px;\" href=\"/\">Home</a></div> \
+  text = header.concat("<body> \
+    <div><a href=\"/\">Home</a></div> \
+    <div style=\"margin-bottom: 12px;\"><a href=\"http://", localIP, ":9095\" target=\"_blank\">Transmission</a></div> \
     <input type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
     <button onclick=\"searchRedirect()\">Search</button> \
     <script> \
@@ -345,13 +356,13 @@ app.get('/search/:terms?', (request, response) => {
       }
     }
     console.log(allItemsNameMagSeedLeech);
-    text = text.concat("<div><table><tr><th>Name</th><th>Size</th><th>Seeds</th><th>Leeches</th></tr>");
+    text = text.concat("<div><table><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
     for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++){
       try{
         text = text.concat("<tr>");
-        text = text.concat("<td><button onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</button></td>");
+        text = text.concat("<td style=\"text-align: left; padding-right: 12px;\"><a href=\"javascript:void(0)\" onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</a></td>");
         for (let ind = 2; ind < 5; ind++){
-          text = text.concat("<td>", allItemsNameMagSeedLeech[tors][ind], "</td>");
+          text = text.concat("<td style=\"text-align: left; padding-right: 12px;\">", allItemsNameMagSeedLeech[tors][ind], "</td>");
           if (ind == 0){
             ind++;
           }
