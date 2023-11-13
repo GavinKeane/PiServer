@@ -64,7 +64,6 @@ try {
         delCache = execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", { timeout: 15000 }).toString();
         delCache = execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", { timeout: 15000 }).toString();
       }
-      console.log(`Folder size: ${size}`);
     }
   })
 } catch { }
