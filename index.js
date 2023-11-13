@@ -13,11 +13,12 @@ const puppeteer = require('puppeteer');
 const ffs = require('fast-folder-size');
 const { execSync } = require('child_process');
 output1 = '';
+maxCacheSize = 4831838208;
 const networkInterfaces = os.networkInterfaces();
 let localIP = "1.1.1.1";
 const interfaces = os.networkInterfaces();
 const interfaceKeys = Object.keys(interfaces);
-console.log("THIS IS A SIMPLE TEST");
+
 for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
   key = interfaceKeys[i];
   for (const iface of interfaces[key]) {
@@ -25,15 +26,15 @@ for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
       localIP = iface.address;
       console.log(`localIP evaluated to be: ${localIP}`);
     }
-    if (localIP !== "1.1.1.1"){
+    if (localIP !== "1.1.1.1") {
       break;
     }
   }
-  if (localIP !== "1.1.1.1"){
+  if (localIP !== "1.1.1.1") {
     break;
   }
 }
-if (localIP === "1.1.1.1"){
+if (localIP === "1.1.1.1") {
   console.log("It restarted");
   yo = execSync("pm2 restart index", { timeout: 1000 }).toString();
   return;
@@ -52,13 +53,14 @@ fs.writeFileSync(fileListFile, fileList);
 const { url } = require('inspector');
 const { Console } = require('console');
 const { allowedNodeEnvironmentFlags } = require('process');
+const fastFolderSize = require('fast-folder-size');
 try {
   const cachePath = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache';
   ffs(cachePath, (err, size) => {
     if (err) {
       console.error(err);
     } else {
-      if (size > 4500000000) {
+      if (size > maxCacheSize) {
         delCache = execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder\"", { timeout: 15000 }).toString();
         delCache = execSync("sudo rm -r \"/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode\"", { timeout: 15000 }).toString();
       }
@@ -78,47 +80,60 @@ const header = '<!DOCTYPE html><html><head> \
 </head>';
 const footer = '</html>';
 
+function formatBytes(bytes, decimals = 2) {
+  if (bytes == 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
 // Landing
 app.get('/', (request, response) => {
-  //wind_status = execSync("windscribe status", { timeout: 15000 }).toString();
-  comm = execSync("windscribe firewall && windscribe status && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
-  //.includes("Firewall mode: on") ? "CONNECTED<span class=\"good\">on</span>" : "DISCONNECTED<span class=\"bad\">off</span>";
-  //trans_status = execSync("/home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
-  wind = '';
-  trans = '';
-  firewall = '';
-  if (comm.includes("Firewall mode: on")){
-    firewall = "<span class=\"good\">on</span>" ;
-  }else{
-    firewall = "<span class=\"bad\">off</span>";
-  }
-  if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
-    wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(firewall, "</div>");
-  } else {
-    wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(firewall, "</div>");
-  }
-  if (comm.includes("tyes")) {
-    trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
-  } else if (comm.includes("tno")) {
-    trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
-  }
-  text = header.concat('<body> \
+  const cachePath = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache';
+  ffs(cachePath, (err, size) => {
+    if (err) {
+      console.error(err);
+    }
+    comm = execSync("windscribe firewall && windscribe status && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
+    wind = '';
+    trans = '';
+    firewall = '';
+    if (comm.includes("Firewall mode: on")) {
+      firewall = "<span class=\"good\">on</span>";
+    } else {
+      firewall = "<span class=\"bad\">off</span>";
+    }
+    if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
+      wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(firewall, "</div>");
+    } else {
+      wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(firewall, "</div>");
+    }
+    if (comm.includes("tyes")) {
+      trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
+    } else if (comm.includes("tno")) {
+      trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
+    }
+    text = header.concat('<body> \
   <div><button id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href="/search/">Pirate Search</a></div> \
   <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
   <div><a href=\"http://', localIP, ':32400\" target=\"_blank">Plex Portal</a></div> \
+  <div style=\"margin-top: 12px;\">Plex cache: ', `${formatBytes(size)} / ${formatBytes(maxCacheSize)}`, '</div> \
   </body>');
 
-  buttonScript = "<script>$(document).ready(function () { \
+    buttonScript = "<script>$(document).ready(function () { \
     $(\"#reboot\").click(function () \
     { if(confirm(\"Are you sure you want to reboot?\")){ \
       \$.post(\"/reboot\", {  }, \
         function (data, status) {console.log(data);})} \
         })});</script>";
-  text = text.replace("[SCRIPTHERE]", buttonScript);
-  text = text.concat(footer);
-  response.send(text);
+    text = text.replace("[SCRIPTHERE]", buttonScript);
+    text = text.concat(footer);
+    response.send(text);
+  });
 });
 
 //File Browser
