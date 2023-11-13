@@ -24,7 +24,6 @@ for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
   for (const iface of interfaces[key]) {
     if (iface.family === 'IPv4' && !iface.internal && iface.address.startsWith('192.168.')) {
       localIP = iface.address;
-      console.log(`localIP evaluated to be: ${localIP}`);
     }
     if (localIP !== "1.1.1.1") {
       break;
@@ -35,7 +34,6 @@ for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
   }
 }
 if (localIP === "1.1.1.1") {
-  console.log("It restarted");
   yo = execSync("pm2 restart index", { timeout: 1000 }).toString();
   return;
 }
