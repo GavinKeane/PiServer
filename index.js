@@ -388,7 +388,6 @@ app.get('/search/:terms?', (request, response) => {
   result = '';
   const baseUrl = "http://www.thepiratebay.org";
   const query = terms;
-  //console.log(query);
   run(baseUrl, query).then(() => {
     result = html1;
     resultSlice = result.split("<span class=\"list-item item-type\">");
@@ -396,7 +395,6 @@ app.get('/search/:terms?', (request, response) => {
     for (let items = 1; items < resultSlice.length && items < 25; items++) {
       nameMagSeedLeech = [];
       cut1 = resultSlice[items].split("<span class=\"list-item item-name item-title\"><a href=")[1].split("\">")[1];
-      //console.log(resultSlice[items]);
       nameMagSeedLeech[0] = cut1.split('<')[0];
       nameMagSeedLeech[1] = "magnet".concat(resultSlice[items].split("href=\"magnet")[1].split("\">")[0]).replace("&amp;", "&");
       nameMagSeedLeech[2] = resultSlice[items].split("list-item item-size\">")[1].split("<")[0].replace("&nbsp;", "").replace("i", "").replace("G", " G").replace("M", " M").replace("K", " K");
@@ -406,7 +404,6 @@ app.get('/search/:terms?', (request, response) => {
         allItemsNameMagSeedLeech[items] = nameMagSeedLeech;
       }
     }
-    console.log(allItemsNameMagSeedLeech);
     text = text.concat("<div><table><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
     for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++) {
       try {
