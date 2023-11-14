@@ -34,7 +34,8 @@ for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
   }
 }
 if (localIP === "1.1.1.1") {
-  yo = execSync("pm2 restart index", { timeout: 1000 }).toString();
+  console.log("It restarted");
+  yo = execSync("pm2 restart index", { timeout: 25000 }).toString();
   return;
 }
 
