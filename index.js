@@ -1,3 +1,4 @@
+
 const express = require('express');
 const fs = require('fs');
 const os = require('os');
@@ -12,13 +13,15 @@ var parser = bodyParser.json();
 const puppeteer = require('puppeteer');
 const ffs = require('fast-folder-size');
 const { execSync } = require('child_process');
+const cron = require('node-cron');
+
+try{
 output1 = '';
 maxCacheSize = 4831838208;
 const networkInterfaces = os.networkInterfaces();
 let localIP = "1.1.1.1";
 const interfaces = os.networkInterfaces();
 const interfaceKeys = Object.keys(interfaces);
-
 for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
   key = interfaceKeys[i];
   for (const iface of interfaces[key]) {
@@ -33,16 +36,17 @@ for (let i = 0; i < interfaceKeys.length && localIP === "1.1.1.1"; i++) {
     break;
   }
 }
+console.log(`IP Evaluated to: ${localIP}`);
 if (localIP === "1.1.1.1") {
   console.log("It restarted");
-  yo = execSync("pm2 restart index", { timeout: 25000 }).toString();
-  return;
+  yo = execSync("pm2 restart index", { timeout: 15000 }).toString();
 }
 
-trans_status = execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
-if (trans_status.includes("no")) {
-  execSync("transmission-gtk&");
-}
+//trans_status = execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
+//console.log(`Transmission open? ${trans_status}`)
+//if (trans_status.includes("tno")) {
+//  execSync("transmission-gtk");
+//}
 
 const fileListFile = '/home/gavin/Documents/project/files.txt';
 const fileList = generateFileList('/mnt');
@@ -87,7 +91,7 @@ function formatBytes(bytes, decimals = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-// Landing
+//Landing
 app.get('/', (request, response) => {
   const cachePath = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache';
   ffs(cachePath, (err, size) => {
@@ -440,7 +444,6 @@ async function run(baseUrl, query) {
   }
 }
 
-
 function moveFolder(s, d) {
   const items = fs.readdirSync(s);
   if (!fs.existsSync(d)) {
@@ -505,5 +508,24 @@ function folderNames(rootDir) {
   traverse(rootDir)
   return folders;
 }
+console.log("Is anyone out there?")
+app.listen(3000, () => console.log('Online'));
+}catch(error){
+  console.error(`from trycatch ${error}`);
+}
 
-app.listen(process.env.PORT || 3000, () => console.log('Online'))
+async function runTest() {
+  const browser = await puppeteer.launch({
+    headless: true,
+    executablePath: '/usr/bin/chromium-browser',
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+  const page = await browser.newPage();
+  await page.goto("http://localhost:3000");
+  const htmlString = await page.content();
+  await browser.close();
+  console.log("A test of the website is being run...");
+  html2 = htmlString;
+}
+
+cron.schedule
