@@ -528,11 +528,7 @@ async function runTest() {
   html2 = htmlString;
 }
 
-cron.schedule('0 5 * * *', () => {
+cron.schedule('0 5 * * 1,3,5', () => {
   const { execSync } = require('child_process');
-  process.chdir("/home/gavin/Documents/project");
-  execSync("git add /home/gavin/Documents/project/files.txt");
-  execSync("git commit -m \"file list update\"");
-  execSync("git push origin master");
   execSync("sudo reboot");
 });
