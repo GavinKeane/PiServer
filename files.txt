@@ -1,7 +1,6 @@
 usb/
   Downloads/
   Movies/
-    0 THIS IS A TEST.txt
     27 Dresses.mp4
     A Clockwork Orange.mp4
     A Star Is Born.mp4
@@ -64,7 +63,9 @@ usb/
     Primal Fear.mkv
     Safe Haven.mp4
     Schindler's List.mp4
+    Sex and the City.mp4
     Shutter Island.mp4
+    Split.mp4
     Tenet/
       Tenet.mp4
       Tenet.srt
@@ -97,9 +98,10 @@ usb/
     The Wolf Of Wall Street.mp4
     Top Gun.mp4
     Transformers.mp4
+    Unbreakable.mp4
     Zero Effect.mp4
   TV/
-    All The Light We Cannot See - Season 1/
+    All The Light We Cannot See/
       All The Light We Cannot See S01E01.mp4
       All The Light We Cannot See S01E02.mp4
       All The Light We Cannot See S01E03.mp4
@@ -484,13 +486,15 @@ usb/
         Modern Family (2009) - S09E22 - Clash of Swords (1080p AMZN WEB-DL x265 Silence).mkv
     Virgin River/
       Season 5/
-        S05E01 - A Second Chance.mkv
-        S05E02 - Songbird.mkv
-        S05E03 - Calculated Risk.mkv
-        S05E04 - Never Gonna Be the Same.mkv
-        S05E05 - Trial by Fire.mkv
-        S05E06 - Heroes Rise.mkv
-        S05E07 - From the Ashes.mkv
-        S05E08 - Full Moon.mkv
-        S05E09 - Angel's Peak.mkv
-        S05E10 - Labor Day.mkv
+        Virgin River S05E01.mkv
+        Virgin River S05E02.mkv
+        Virgin River S05E03.mkv
+        Virgin River S05E04.mkv
+        Virgin River S05E05.mkv
+        Virgin River S05E06.mkv
+        Virgin River S05E07.mkv
+        Virgin River S05E08.mkv
+        Virgin River S05E09.mkv
+        Virgin River S05E10.mkv
+        Virgin River S05E11.mkv
+        Virgin River S05E12.mkv

@@ -14,6 +14,7 @@ const puppeteer = require('puppeteer');
 const ffs = require('fast-folder-size');
 const { execSync } = require('child_process');
 const cron = require('node-cron');
+const disk = require('diskusage');
 
 try {
   output1 = '';
@@ -86,7 +87,7 @@ try {
     if (bytes == 0) return '0 Bytes';
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
@@ -94,47 +95,51 @@ try {
   //Landing
   app.get('/', (request, response) => {
     const cachePath = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache';
-    ffs(cachePath, (err, size) => {
-      if (err) {
-        console.error(err);
-      }
-      comm = execSync("windscribe firewall && windscribe status && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
-      wind = '';
-      trans = '';
-      firewall = '';
-      if (comm.includes("Firewall mode: on")) {
-        firewall = "<span class=\"good\">on</span>";
-      } else {
-        firewall = "<span class=\"bad\">off</span>";
-      }
-      if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
-        wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(firewall, "</div>");
-      } else {
-        wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(firewall, "</div>");
-      }
-      if (comm.includes("tyes")) {
-        trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
-      } else if (comm.includes("tno")) {
-        trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
-      }
-      text = header.concat('<body> \
+    const hdd = '/mnt/usb';
+    disk.check(hdd, (err, info) => {
+      ffs(cachePath, (err, size) => {
+        if (err) {
+          console.error(err);
+        }
+        comm = execSync("windscribe firewall && windscribe status && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
+        wind = '';
+        trans = '';
+        firewall = '';
+        if (comm.includes("Firewall mode: on")) {
+          firewall = "<span class=\"good\">on</span>";
+        } else {
+          firewall = "<span class=\"bad\">off</span>";
+        }
+        if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
+          wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(firewall, "</div>");
+        } else {
+          wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(firewall, "</div>");
+        }
+        if (comm.includes("tyes")) {
+          trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
+        } else if (comm.includes("tno")) {
+          trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
+        }
+        text = header.concat('<body style=\"font-size: 28px;\"> \
   <div><button id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href="/search/">Pirate Search</a></div> \
   <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
   <div><a href=\"http://', localIP, ':32400\" target=\"_blank">Plex Portal</a></div> \
   <div style=\"margin-top: 12px;\">Plex cache: ', `${formatBytes(size)} / ${formatBytes(maxCacheSize)}`, '</div> \
+  <div >HDD storage: ', `${formatBytes(info.total - info.available)} / ${formatBytes(info.total)}`, '</div> \
   </body>');
 
-      buttonScript = "<script>$(document).ready(function () { \
+        buttonScript = "<script>$(document).ready(function () { \
     $(\"#reboot\").click(function () \
     { if(confirm(\"Are you sure you want to reboot?\")){ \
       \$.post(\"/reboot\", {  }, \
         function (data, status) {console.log(data);})} \
         })});</script>";
-      text = text.replace("[SCRIPTHERE]", buttonScript);
-      text = text.concat(footer);
-      response.send(text);
+        text = text.replace("[SCRIPTHERE]", buttonScript);
+        text = text.concat(footer);
+        response.send(text);
+      });
     });
   });
 
@@ -362,6 +367,7 @@ try {
     terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
     text = header.concat("<body> \
     <div><a href=\"/\">Home</a></div> \
+    <div><a href=\"/files/\">File Explorer</a></div> \
     <div style=\"margin-bottom: 12px;\"><a href=\"http://", localIP, ":9095\" target=\"_blank\">Transmission</a></div> \
     <input type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
     <button onclick=\"searchRedirect()\">Search</button> \
@@ -406,7 +412,9 @@ try {
           allItemsNameMagSeedLeech[items] = nameMagSeedLeech;
         }
       }
-      text = text.concat("<div><table><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
+      if (terms !== "[blank]") {
+        text = text.concat("<div><table style=\"margin-top: 12px;\"><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
+      }
       for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++) {
         try {
           if (allItemsNameMagSeedLeech[tors][0] !== "") {
