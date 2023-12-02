@@ -43,16 +43,9 @@ try {
     yo = execSync("pm2 restart index", { timeout: 15000 }).toString();
   }
 
-  //trans_status = execSync("sudo /home/gavin/Desktop/project/check-trans.sh", { timeout: 10000 }).toString();
-  //console.log(`Transmission open? ${trans_status}`)
-  //if (trans_status.includes("tno")) {
-  //  execSync("transmission-gtk");
-  //}
-
   const fileListFile = '/home/gavin/Documents/project/files.txt';
   const fileList = generateFileList('/mnt');
   fs.writeFileSync(fileListFile, fileList);
-
 
   const { url } = require('inspector');
   const { Console } = require('console');
