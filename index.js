@@ -120,8 +120,8 @@ try {
   <div><a href="/search/">Pirate Search</a></div> \
   <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
   <div><a href=\"http://', localIP, ':32400\" target=\"_blank">Plex Portal</a></div> \
-  <div style=\"margin-top: 12px;\">Plex cache: ', `${formatBytes(size)} / ${formatBytes(maxCacheSize)}  (${((size / maxCacheSize) * 100).toFixed(0)}%)`, '</div> \
-  <div >HDD storage: ', `${formatBytes(info.total - info.available)} / ${formatBytes(info.total)}  (${(((info.total - info.available) / info.total) * 100).toFixed(0)}%)`, '</div> \
+  <div style=\"margin-top: 12px;\">Plex cache: ', `${formatBytes(size)} / ${formatBytes(maxCacheSize)}`,"&nbsp;&nbsp;&nbsp;",`(${((size / maxCacheSize) * 100).toFixed(0)}%)`, '</div> \
+  <div >HDD storage: ', `${formatBytes(info.total - info.available)} / ${formatBytes(info.total)}`,"&nbsp;&nbsp;&nbsp;",`(${(((info.total - info.available) / info.total) * 100).toFixed(0)}%)`, '</div> \
   </body>');
 
         buttonScript = "<script>$(document).ready(function () { \
