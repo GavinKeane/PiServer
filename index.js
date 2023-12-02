@@ -405,7 +405,8 @@ try {
           allItemsNameMagSeedLeech[items] = nameMagSeedLeech;
         }
       }
-      text = text.concat("<div><table style=\"margin-top: 12px;\"><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
+      hidden = allItemsNameMagSeedLeech.length > 0 ? "" : " style=\"display: none;\"";
+      text = text.concat("<div", hidden, "><table style=\"margin-top: 12px;\"><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
       for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++) {
         try {
           if (allItemsNameMagSeedLeech[tors][0] !== "") {
