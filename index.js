@@ -120,8 +120,8 @@ try {
         } else if (comm.includes("tno")) {
           trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
         }
-        text = header.concat('<body style=\"font-size: 28px;\"> \
-  <div><button id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
+        text = header.concat('<body style=\"font-size: 50px;\"> \
+  <div><button  style=\"font-size: 28px;\" id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href="/search/">Pirate Search</a></div> \
   <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
