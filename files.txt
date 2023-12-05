@@ -35,6 +35,7 @@ usb/
       Harry Potter and the Sorcerers Stone.mp4
     Hitch (2005).mp4
     Hocus Pocus 2.mp4
+    Home Alone.mp4
     How the Grinch Stole Christmas.mp4
     Inception.mp4
     Insomnia.mp4

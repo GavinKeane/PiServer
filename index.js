@@ -407,6 +407,7 @@ try {
         }
       }
       hidden = allItemsNameMagSeedLeech.length > 0 ? "" : " style=\"display: none;\"";
+      //hidden = true ? "" : " style=\"display: none;\"";
       text = text.concat("<div", hidden, "><table style=\"margin-top: 12px;\"><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
       for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++) {
         try {
