@@ -71,6 +71,7 @@ try {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> \
 [SCRIPTHERE] \
 <style> \
+ input.searchbox {font-size: 22px;} \
  body {font-size: 22px;} \
  button {font-size: 16px;} \
  select {font-size: 16px;} \
@@ -369,7 +370,7 @@ try {
     <div><a href=\"/\">Home</a></div> \
     <div><a href=\"/files/\">File Explorer</a></div> \
     <div style=\"margin-bottom: 12px;\"><a href=\"http://", localIP, ":9095\" target=\"_blank\">Transmission</a></div> \
-    <input type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
+    <input class=\"searchbox\" type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
     <button onclick=\"searchRedirect()\">Search</button> \
     <script> \
     function searchRedirect() { \
