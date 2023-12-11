@@ -14,10 +14,12 @@ usb/
     Blade Runner.mp4
     Borat.mp4
     Bridesmaids.mp4
+    Catch Me If You Can.mp4
     Crazy Rich Asians.mp4
     Dirty Dancing.mp4
+    Edward Scissorhands.mp4
+    Elf.mp4
     Fight Club.mp4
-    Finding Frances.mp4
     Fletch.mp4
     Flight.mp4
     Glass Onion.mkv
@@ -60,6 +62,7 @@ usb/
       Pirates of the Caribbean At Worlds End.mp4
       Pirates of the Caribbean Curse of the Black Pearl.mp4
       Pirates of the Caribbean Dead Man's Chest.mp4
+      gadghasdhgqhjwgejhqgwejhgqjhwgeqjhwgejgqwgejqgweq we qwe qweqweqwe/
     Pride and Prejudice.mp4
     Primal Fear.mkv
     Safe Haven.mp4
@@ -95,6 +98,8 @@ usb/
     The Silence of the Lambs.mp4
     The Social Network.mp4
     The Sound of Music.mp4
+    The Terminator.mp4
+    The Truman Show.mp4
     The Usual Suspects.mp4
     The Wolf Of Wall Street.mp4
     Top Gun.mp4
@@ -485,6 +490,32 @@ usb/
         Modern Family (2009) - S09E20 - Mother! (1080p AMZN WEB-DL x265 Silence).mkv
         Modern Family (2009) - S09E21 - The Escape (1080p AMZN WEB-DL x265 Silence).mkv
         Modern Family (2009) - S09E22 - Clash of Swords (1080p AMZN WEB-DL x265 Silence).mkv
+    Nathan for You/
+      Season 4/
+        Nathan for You - S04E07.mp4
+    The Lincoln Lawyer/
+      Season 1/
+        The Lincoln Lawyer S01E01.mp4
+        The Lincoln Lawyer S01E02.mp4
+        The Lincoln Lawyer S01E03.mp4
+        The Lincoln Lawyer S01E04.mp4
+        The Lincoln Lawyer S01E05.mp4
+        The Lincoln Lawyer S01E06.mp4
+        The Lincoln Lawyer S01E07.mp4
+        The Lincoln Lawyer S01E08.mp4
+        The Lincoln Lawyer S01E09.mp4
+        The Lincoln Lawyer S01E10.mp4
+      Season 2/
+        The Lincoln Lawyer S02E01.mp4
+        The Lincoln Lawyer S02E02.mp4
+        The Lincoln Lawyer S02E03.mp4
+        The Lincoln Lawyer S02E04.mp4
+        The Lincoln Lawyer S02E05.mp4
+        The Lincoln Lawyer S02E06.mp4
+        The Lincoln Lawyer S02E07.mp4
+        The Lincoln Lawyer S02E08.mp4
+        The Lincoln Lawyer S02E09.mp4
+        The Lincoln Lawyer S02E10.mp4
     Virgin River/
       Season 5/
         Virgin River S05E01.mkv

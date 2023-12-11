@@ -71,6 +71,10 @@ try {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> \
 [SCRIPTHERE] \
 <style> \
+ body {font-size: 22px;} \
+ button {font-size: 16px;} \
+ select {font-size: 16px;} \
+ option {font-size: 16px;}\
  .good {color:green; text-decoration:underline} \
  .bad {color:red; text-decoration:underline} \
 </style> \
@@ -174,6 +178,7 @@ try {
     names = names.concat('<table>')
     buttonIndex = 0;
     buttonScript = '<script>';
+    refreshDelay = 275;
     fs.readdir(fullPath, (err, files) => {
       files.forEach(file => {
         if (!(String(file) === 'System Volume Information') && !(String(file) === '.Trash-1000')) {
@@ -184,7 +189,7 @@ try {
           <td><a>", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
           <td><button id=\"button1-", buttonIndex, "\">Delete</button></td> \
-          <td><select name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
+          <td><select style=\"max-width: 200px;\" name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</td><td></select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
           </tr>");
 
             // File rename
@@ -199,7 +204,8 @@ try {
                 href: window.location.href, \
                 action: \"rename\" }, \
                 function (data, status) {console.log(data);});} \
-              else{}});});");
+              else{} setTimeout (function () {location.reload();}, ", refreshDelay, ");\
+            });});");
 
             // File delete
             buttonScript = buttonScript.concat("$(document).ready(function () { \
@@ -211,7 +217,7 @@ try {
                   href: window.location.href, \
                   action: \"delete\" }, \
                 function (data, status) {console.log(data);});} \
-              else{}});});");
+              else{} setTimeout (function () {location.reload();}, ", refreshDelay, ");});});");
 
             // File move
             buttonScript = buttonScript.concat("$(document).ready(function () { \
@@ -226,7 +232,7 @@ try {
                   destination: loc, \
                   action: \"move\" }, \
                 function (data, status) {console.log(data);});} \
-              else{}});});");
+              else{} setTimeout (function () {location.reload();}, ", refreshDelay, ");});});");
             buttonIndex++;
 
             // Folder
@@ -239,7 +245,7 @@ try {
           <td><a href=\"", trail, "\">", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
           <td><button id=\"button1-", buttonIndex, "\">Delete</button></td> \
-          <td><select name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
+          <td><select style=\"max-width: 200px;\" name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</td><td></select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
           </tr>");
 
             // Folder rename
@@ -254,7 +260,7 @@ try {
                 name: newName, \
                 action: \"rename\" }, \
                 function (data, status) {console.log(data);});} \
-              else{}});});");
+              else{} setTimeout (function () {location.reload();}, ", refreshDelay, ");});});");
 
             // Folder delete
             buttonScript = buttonScript.concat("$(document).ready(function () { \
@@ -266,7 +272,7 @@ try {
                   href: window.location.href, \
                   action: \"delete\" }, \
                 function (data, status) {console.log(data);});} \
-              else{}});});");
+              else{} setTimeout (function () {location.reload();}, ", refreshDelay, ");});});");
 
             // Folder move
             buttonScript = buttonScript.concat("$(document).ready(function () { \
@@ -281,12 +287,12 @@ try {
                   destination: loc, \
                   action: \"move\" }, \
                 function (data, status) {console.log(data);});} \
-              else{}});});");
+              else{} setTimeout (function () {location.reload();}, ", refreshDelay, ");});});");
             buttonIndex++;
           }
         }
       });
-      // File rename
+      // New Folder
       buttonScript = buttonScript.concat("$(document).ready(function () { \
       $(\"#newfolder\").click(function () { \
         newName = prompt(\"Enter a name for the new folder\"); \
@@ -298,7 +304,7 @@ try {
           href: window.location.href, \
           action: \"newfolder\" }, \
           function (data, status) {console.log(data);});} \
-        else{}});});");
+        else{} setTimeout (function () {location.reload();}, ", refreshDelay, ");});});");
       if (err) {
         response.status(500).send('Something went wrong')
       }
