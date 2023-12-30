@@ -15,11 +15,13 @@ usb/
     Borat.mp4
     Bridesmaids.mp4
     Catch Me If You Can.mp4
+    Christmas in Notting Hill.mp4
     Crazy Rich Asians.mp4
     Dirty Dancing.mp4
     Edward Scissorhands.mp4
     Elf.mp4
     Fight Club.mp4
+    First Man.mkv
     Fletch.mp4
     Flight.mp4
     Glass Onion.mkv
@@ -37,6 +39,7 @@ usb/
       Harry Potter and the Sorcerers Stone.mp4
     Hitch (2005).mp4
     Hocus Pocus 2.mp4
+    Home Alone 2 Lost in New York.mp4
     Home Alone.mp4
     How the Grinch Stole Christmas.mp4
     Inception.mp4
@@ -64,6 +67,7 @@ usb/
       Pirates of the Caribbean Dead Man's Chest.mp4
     Pride and Prejudice.mp4
     Primal Fear.mkv
+    Rudolph The Red-Nosed Reindeer - The Movie.avi
     Safe Haven.mp4
     Schindler's List.mp4
     Sex and the City.mp4
@@ -84,6 +88,7 @@ usb/
     The Last Song.mp4
     The Lion King (2019).mp4
     The Longest Ride.mp4
+    The Nice Guys.mkv
     The Notebook.mp4
     The Polar Express.mp4
     The Prestige.mp4

@@ -19,7 +19,7 @@ const { maxHeaderSize } = require('http');
 
 try {
   output1 = '';
-  maxCacheSize = 4831838208;
+  maxCacheSize = 53687091200;
   const networkInterfaces = os.networkInterfaces();
   let localIP = "1.1.1.1";
   const interfaces = os.networkInterfaces();
@@ -93,6 +93,7 @@ try {
 
   //Landing
   app.get('/', (request, response) => {
+    pirateLink = "/search/";
     const cachePath = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache';
     const hdd = '/mnt/usb';
     disk.check(hdd, (err, info) => {
@@ -100,19 +101,20 @@ try {
         if (err) {
           console.error(err);
         }
-        comm = execSync("windscribe firewall && windscribe status && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
+        comm = execSync("bash /home/gavin/Documents/project/check-wind.sh && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
         wind = '';
         trans = '';
-        firewall = '';
-        if (comm.includes("Firewall mode: on")) {
-          firewall = "<span class=\"good\">on</span>";
-        } else {
-          firewall = "<span class=\"bad\">off</span>";
-        }
+        // firewall = '';
+        // if (comm.includes("Firewall mode: on")) {
+        //   firewall = "<span class=\"good\">on</span>";
+        // } else {
+        //   firewall = "<span class=\"bad\">off</span>";
+        // }
         if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
-          wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span> and firewall is ".concat(firewall, "</div>");
+          wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span></div>";// and firewall is ".concat(firewall, "</div>");
         } else {
-          wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span> and firewall is ".concat(firewall, "</div>");
+          pirateLink = "#";
+          wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span></div>";// and firewall is ".concat(firewall, "</div>");
         }
         if (comm.includes("tyes")) {
           trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
@@ -122,7 +124,7 @@ try {
         text = header.concat('<body style=\"font-size: 50px;\"> \
   <div><button  style=\"font-size: 28px;\" id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
-  <div><a href="/search/">Pirate Search</a></div> \
+  <div><a href="', pirateLink, '">Pirate Search</a></div> \
   <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
   <div><a href=\"http://', localIP, ':32400\" target=\"_blank">Plex Portal</a></div> \
   <div style=\"margin-top: 12px;\">Plex cache: ', `${formatBytes(size)} / ${formatBytes(maxCacheSize)}`,"&nbsp;&nbsp;&nbsp;",`(${((size / maxCacheSize) * 100).toFixed(0)}%)`, '</div> \
