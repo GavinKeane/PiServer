@@ -1,9 +1,88 @@
-.good{
+.good {
     color: green;
     text-decoration: underline;
 }
 
-.bad{
+.bad {
     color: red;
     text-decoration: underline;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    font-size: larger;
+    color: white;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav a.inactive-link {
+    pointer-events: none;
+    color: #555555;
+    text-decoration: none;
+    cursor: default;
+}
+
+.searchbox {
+    margin-top: 10px;
+}
+
+.explorer-top {
+    margin-top: 10px;
+}
+
+.progress-container {
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.progress-wrapper {
+    position: relative;
+}
+
+p.progress-text {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+div.home-info {
+    margin-top: 10px;
+}
+
+progress {
+    width: 300px;
+    height: 25px;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #a3a3a3;
+}
+
+progress::-webkit-progress-value {
+    background-color: #75e27a;
+}
+
+progress.progress-good::-webkit-progress-value {
+    background-color: #75e27a;
+}
+
+progress.progress-bad::-webkit-progress-value {
+    background-color: #f36767;
 }

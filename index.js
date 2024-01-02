@@ -18,6 +18,7 @@ const disk = require('diskusage');
 const { maxHeaderSize } = require('http');
 app.use(express.static('public'));
 
+localIPGlobal = '';
 try {
   output1 = '';
   maxCacheSize = 53687091200;
@@ -30,6 +31,7 @@ try {
     for (const iface of interfaces[key]) {
       if (iface.family === 'IPv4' && !iface.internal && iface.address.startsWith('192.168.')) {
         localIP = iface.address;
+        localIPGlobal = localIP;
       }
       if (localIP !== "1.1.1.1") {
         break;
@@ -86,7 +88,6 @@ try {
 
   //Landing
   app.get('/', (request, response) => {
-    pirateLink = "/search/";
     const cachePath = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache';
     const hdd = '/mnt/usb';
     disk.check(hdd, (err, info) => {
@@ -97,31 +98,41 @@ try {
         comm = execSync("bash /home/gavin/Documents/projectv2/PiServer/check-wind.sh && bash /home/gavin/Documents/projectv2/PiServer/check-trans.sh", { timeout: 15000 }).toString();
         wind = '';
         trans = '';
-        // firewall = '';
-        // if (comm.includes("Firewall mode: on")) {
-        //   firewall = "<span class=\"good\">on</span>";
-        // } else {
-        //   firewall = "<span class=\"bad\">off</span>";
-        // }
         if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
-          wind = "<div>Windscribe is <span class=\"good\">connected</span></div>";// and firewall is ".concat(firewall, "</div>");
+          wind = 'progress-good';
         } else {
-          pirateLink = "#";
-          wind = "<div>Windscribe is <span class=\"bad\">disonnected</span></div>";// and firewall is ".concat(firewall, "</div>");
+          wind = 'progress-bad';
         }
         if (comm.includes("tyes")) {
-          trans = "<div>Transmission is <span class=\"good\">running</span></div>";
+          trans = 'progress-good';
         } else if (comm.includes("tno")) {
-          trans = "<div>Transmission is <span class=\"bad\">not running</span></div>";
+          trans = 'progress-bad';
         }
         text = header.concat('<body> \
-  <div><button  id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
-  <div><a href="/files/">File Explorer</a></div> \
-  <div><a href="', pirateLink, '">Pirate Search</a></div> \
-  <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
-  <div><a href=\"http://', localIP, ':32400\" target=\"_blank">Plex Portal</a></div> \
-  <div>Plex cache: ', `${formatBytes(size)} / ${formatBytes(maxCacheSize)}`,"&nbsp;&nbsp;&nbsp;",`(${((size / maxCacheSize) * 100).toFixed(0)}%)`, '</div> \
-  <div >HDD storage: ', `${formatBytes(info.total - info.available)} / ${formatBytes(info.total)}`,"&nbsp;&nbsp;&nbsp;",`(${(((info.total - info.available) / info.total) * 100).toFixed(0)}%)`, '</div> \
+        ', generateNavbar(), ' \
+        <div class="home-info"> \
+        <div class="progress-container"> \
+        <div class="progress-wrapper"> \
+        <p class="progress-text">Plex Cache: ', formatBytes(size), ' / ', formatBytes(maxCacheSize), '</p> \
+        <progress value="', ((size / maxCacheSize) * 100).toFixed(0), '" max="100"></progress> \
+        </div></div> \
+        <div class="progress-container"> \
+        <div class="progress-wrapper"> \
+        <p class="progress-text">HDD Storage: ', formatBytes(info.total - info.available), ' / ', formatBytes(info.total), '</p> \
+        <progress value="', (((info.total - info.available) / info.total) * 100).toFixed(0), '" max="100"></progress> \
+        </div></div> \
+        <div class="progress-container"> \
+        <div class="progress-wrapper"> \
+        <p class="progress-text">Windscribe</p> \
+        <progress class="', wind, '" value="100" max="100"></progress> \
+        </div></div> \
+        <div class="progress-container"> \
+        <div class="progress-wrapper"> \
+        <p class="progress-text">Transmission</p> \
+        <progress class="', trans, '" value="100" max="100"></progress> \
+        </div></div> \
+        </div> \
+  <div><button  id=\"reboot\">Reboot Pi</button></div> \
   </body>');
 
         buttonScript = "<script>$(document).ready(function () { \
@@ -142,7 +153,7 @@ try {
     if (typeof request.params.path !== "undefined" && String(request.params.path).includes("..")) {
       response.status(500).send('Something went wrong');
     }
-    names = header.concat('<body><div><a href="/">Home</a></div><div>Current Directory</div>');
+    names = header.concat('<body>', generateNavbar(), '</div><div class=\"explorer-top\">Current Directory</div>');
     root = '/mnt/usb/';
     rawPathVar = typeof request.params.path !== "undefined" ? String(request.params.path) : '';
     pathVar = typeof request.params.path !== "undefined" ? String(request.params.path).replace(/\+/g, '/').replace(/\%20/g, ' ') : '';
@@ -362,9 +373,7 @@ try {
     result = '';
     terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
     text = header.concat("<body> \
-    <div><a href=\"/\">Home</a></div> \
-    <div><a href=\"/files/\">File Explorer</a></div> \
-    <div><a href=\"http://", localIP, ":9095\" target=\"_blank\">Transmission</a></div> \
+    ", generateNavbar(), " \
     <input class=\"searchbox\" type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
     <button onclick=\"searchRedirect()\">Search</button> \
     <script> \
@@ -495,6 +504,36 @@ try {
     return structureString;
   }
 
+  // New Transmission
+  app.get('/transmission', (request, response) => {
+   contents = '<!DOCTYPE html><html><head> \
+   <title>Transmission</title> \
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> \
+   <link rel="stylesheet" type="text/css" href="/styles.css"> \
+   </head>'
+   contents = contents.concat(' \
+   <body> \
+   ', generateNavbar(), ' \
+   <iframe src="http://', localIPGlobal , ':9095\" width="100%" height="600px" frameborder="0"></iframe>'
+   );
+   response.send(contents);
+  });
+
+    // New Plex Portal
+    app.get('/plex', (request, response) => {
+      contents = '<!DOCTYPE html><html><head> \
+      <title>Plex Portal</title> \
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> \
+      <link rel="stylesheet" type="text/css" href="/styles.css"> \
+      </head>'
+      contents = contents.concat(' \
+      <body> \
+      ', generateNavbar(), ' \
+      <iframe src="http://', localIPGlobal , ':32400\" width="100%" height="1235px" frameborder="0"></iframe>'
+      );
+      response.send(contents);
+     });
+
   function folderNames(rootDir) {
     const folders = [];
     function traverse(current) {
@@ -529,6 +568,30 @@ async function runTest() {
   await browser.close();
   console.log("A test of the website is being run...");
   html2 = htmlString;
+}
+
+function generateNavbar() {
+  navbar = '';
+  pirateLinkClass = '';
+  pirateLink = '';
+  comm = execSync("bash /home/gavin/Documents/projectv2/PiServer/check-wind.sh && bash /home/gavin/Documents/projectv2/PiServer/check-trans.sh", { timeout: 15000 }).toString();
+  if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
+    pirateLinkClass = 'active-link';
+    pirateLink = pirateLink.concat("http://", localIPGlobal , ":3000/search/");
+  } else {
+    pirateLinkClass = 'inactive-link';
+    pirateLink = "#";
+  }
+  navbar = navbar.concat("\
+    <nav> \
+      <a href=\"http://", localIPGlobal , ":3000\">Home</a> \
+      <a href=\"http://", localIPGlobal , ":3000/files/\">File Explorer</a> \
+      <a class=\"", pirateLinkClass, "\" href=\"", pirateLink, "\">Pirate Search</a> \
+      <a href=\"http://", localIPGlobal , ":3000/transmission/\">Transmission</a> \
+      <a href=\"http://", localIPGlobal , ":3000/plex/\">Plex Portal</a> \
+    </nav> \
+  ");
+  return navbar;
 }
 
 cron.schedule('0 5 * * 1,3,5', () => {
