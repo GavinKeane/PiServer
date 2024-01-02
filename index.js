@@ -16,6 +16,7 @@ const { execSync } = require('child_process');
 const cron = require('node-cron');
 const disk = require('diskusage');
 const { maxHeaderSize } = require('http');
+app.use(express.static('public'));
 
 try {
   output1 = '';
@@ -44,7 +45,7 @@ try {
     yo = execSync("pm2 restart index", { timeout: 15000 }).toString();
   }
 
-  const fileListFile = '/home/gavin/Documents/project/files.txt';
+  const fileListFile = '/home/gavin/Documents/projectv2/PiServer/files.txt';
   const fileList = generateFileList('/mnt');
   fs.writeFileSync(fileListFile, fileList);
 
@@ -70,15 +71,6 @@ try {
 <title>Cabbage Connect</title> \
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> \
 [SCRIPTHERE] \
-<style> \
- input.searchbox {font-size: 22px;} \
- body {font-size: 22px;} \
- button {font-size: 16px;} \
- select {font-size: 16px;} \
- option {font-size: 16px;}\
- .good {color:green; text-decoration:underline} \
- .bad {color:red; text-decoration:underline} \
-</style> \
 </head>';
   const footer = '</html>';
 
@@ -101,7 +93,7 @@ try {
         if (err) {
           console.error(err);
         }
-        comm = execSync("bash /home/gavin/Documents/project/check-wind.sh && bash /home/gavin/Documents/project/check-trans.sh", { timeout: 15000 }).toString();
+        comm = execSync("bash /home/gavin/Documents/projectv2/PiServer/check-wind.sh && bash /home/gavin/Documents/projectv2/PiServer/check-trans.sh", { timeout: 15000 }).toString();
         wind = '';
         trans = '';
         // firewall = '';
@@ -111,23 +103,23 @@ try {
         //   firewall = "<span class=\"bad\">off</span>";
         // }
         if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
-          wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"good\">connected</span></div>";// and firewall is ".concat(firewall, "</div>");
+          wind = "<div>Windscribe is <span class=\"good\">connected</span></div>";// and firewall is ".concat(firewall, "</div>");
         } else {
           pirateLink = "#";
-          wind = "<div style=\"margin-top: 12px;\">Windscribe is <span class=\"bad\">disonnected</span></div>";// and firewall is ".concat(firewall, "</div>");
+          wind = "<div>Windscribe is <span class=\"bad\">disonnected</span></div>";// and firewall is ".concat(firewall, "</div>");
         }
         if (comm.includes("tyes")) {
-          trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"good\">running</span></div>";
+          trans = "<div>Transmission is <span class=\"good\">running</span></div>";
         } else if (comm.includes("tno")) {
-          trans = "<div style=\"margin-bottom: 12px;\">Transmission is <span class=\"bad\">not running</span></div>";
+          trans = "<div>Transmission is <span class=\"bad\">not running</span></div>";
         }
-        text = header.concat('<body style=\"font-size: 50px;\"> \
-  <div><button  style=\"font-size: 28px;\" id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
+        text = header.concat('<body> \
+  <div><button  id=\"reboot\">Reboot Pi</button></div>', wind, trans, ' \
   <div><a href="/files/">File Explorer</a></div> \
   <div><a href="', pirateLink, '">Pirate Search</a></div> \
   <div><a href=\"http://', localIP, ':9095\" target=\"_blank">Transmission</a></div> \
   <div><a href=\"http://', localIP, ':32400\" target=\"_blank">Plex Portal</a></div> \
-  <div style=\"margin-top: 12px;\">Plex cache: ', `${formatBytes(size)} / ${formatBytes(maxCacheSize)}`,"&nbsp;&nbsp;&nbsp;",`(${((size / maxCacheSize) * 100).toFixed(0)}%)`, '</div> \
+  <div>Plex cache: ', `${formatBytes(size)} / ${formatBytes(maxCacheSize)}`,"&nbsp;&nbsp;&nbsp;",`(${((size / maxCacheSize) * 100).toFixed(0)}%)`, '</div> \
   <div >HDD storage: ', `${formatBytes(info.total - info.available)} / ${formatBytes(info.total)}`,"&nbsp;&nbsp;&nbsp;",`(${(((info.total - info.available) / info.total) * 100).toFixed(0)}%)`, '</div> \
   </body>');
 
@@ -149,13 +141,13 @@ try {
     if (typeof request.params.path !== "undefined" && String(request.params.path).includes("..")) {
       response.status(500).send('Something went wrong');
     }
-    names = header.concat('<body><div style="margin-bottom: 12px;"><a href="/">Home</a></div><div>Current Directory</div>');
+    names = header.concat('<body><div><a href="/">Home</a></div><div>Current Directory</div>');
     root = '/mnt/usb/';
     rawPathVar = typeof request.params.path !== "undefined" ? String(request.params.path) : '';
     pathVar = typeof request.params.path !== "undefined" ? String(request.params.path).replace(/\+/g, '/').replace(/\%20/g, ' ') : '';
 
     // File Path with links
-    names = names.concat('<div style="margin-bottom:12px;"><a>/ </a><a href=\"/files/\">root</a>');
+    names = names.concat('<div><a>/ </a><a href=\"/files/\">root</a>');
     pathArr = typeof request.params.path !== "undefined" ? request.params.path.split("+") : '';
     for (let i = 0; i < pathArr.length; i++) {
       subPath = '';
@@ -192,7 +184,7 @@ try {
           <td><a>", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
           <td><button id=\"button1-", buttonIndex, "\">Delete</button></td> \
-          <td><select style=\"max-width: 200px;\" name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</td><td></select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
+          <td><select class=\"folder-drop-down\" name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</td><td></select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
           </tr>");
 
             // File rename
@@ -248,7 +240,7 @@ try {
           <td><a href=\"", trail, "\">", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
           <td><button id=\"button1-", buttonIndex, "\">Delete</button></td> \
-          <td><select style=\"max-width: 200px;\" name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</td><td></select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
+          <td><select class=\"folder-drop-down\" name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</td><td></select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
           </tr>");
 
             // Folder rename
@@ -371,7 +363,7 @@ try {
     text = header.concat("<body> \
     <div><a href=\"/\">Home</a></div> \
     <div><a href=\"/files/\">File Explorer</a></div> \
-    <div style=\"margin-bottom: 12px;\"><a href=\"http://", localIP, ":9095\" target=\"_blank\">Transmission</a></div> \
+    <div><a href=\"http://", localIP, ":9095\" target=\"_blank\">Transmission</a></div> \
     <input class=\"searchbox\" type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
     <button onclick=\"searchRedirect()\">Search</button> \
     <script> \
@@ -416,15 +408,14 @@ try {
         }
       }
       hidden = allItemsNameMagSeedLeech.length > 0 ? "" : " style=\"display: none;\"";
-      //hidden = true ? "" : " style=\"display: none;\"";
-      text = text.concat("<div", hidden, "><table style=\"margin-top: 12px;\"><tr><th style=\"text-align: left;\">Name</th><th style=\"text-align: left;\">Size</th><th style=\"text-align: left;\">Seeds</th><th style=\"text-align: left;\">Leeches</th></tr>");
+      text = text.concat("<div", hidden, "><table><tr><th>Name</th><th>Size</th><th>Seeds</th><th>Leeches</th></tr>");
       for (let tors = 1; tors < allItemsNameMagSeedLeech.length; tors++) {
         try {
           if (allItemsNameMagSeedLeech[tors][0] !== "") {
             text = text.concat("<tr>");
-            text = text.concat("<td style=\"text-align: left; padding-right: 12px;\"><a href=\"javascript:void(0)\" onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</a></td>");
+            text = text.concat("<td><a href=\"javascript:void(0)\" onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</a></td>");
             for (let ind = 2; ind < 5; ind++) {
-              text = text.concat("<td style=\"text-align: left; padding-right: 12px;\">", allItemsNameMagSeedLeech[tors][ind], "</td>");
+              text = text.concat("<td>", allItemsNameMagSeedLeech[tors][ind], "</td>");
               if (ind == 0) {
                 ind++;
               }
