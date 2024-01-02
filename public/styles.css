@@ -5,6 +5,23 @@
     --light-green: #75e27a;
     --light-red: #f36767;
     --global-font-family: 'Courier New', Courier, monospace;
+    --dark-green: #002c00;
+}
+
+a.b-link:link {
+    color: green;
+}
+
+a.b-link:visited {
+    color: green;
+}
+
+a.b-link:hover {
+    color: var(--light-green);
+}
+
+a.b-link:active {
+    color: var(--dark-green);
 }
 
 .good {
@@ -20,7 +37,7 @@
 nav {
     background-color: var(--gray);
     color: white;
-    padding: 10px;
+    padding: 8px;
     display: flex;
     align-items: center;
 }
@@ -48,10 +65,14 @@ nav a.inactive-link {
 }
 
 .searchbox {
-    margin-top: 10px;
+    height: 20px;
     width: 250px;
     appearance: none;
+    border-radius: 0px;
+    border: 1px solid #000 ;
     font-family: var(--global-font-family);
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 table {
@@ -97,11 +118,36 @@ tr {
 button {
     background-color: var(--lightest-gray);
     font-size: 14px;
+    height: 18px;
     color: black;
     appearance: none;
     font-family: var(--global-font-family);
     border: 1px solid #000;
     appearance: none;
+}
+
+img.cabbage-logo {
+    margin-right: 15px;
+    height: 39px;
+    width: 35px;
+}
+
+div.search-container {
+    margin-top: 8px;
+}
+
+button.search-button {
+    background-color: var(--lightest-gray);
+    font-size: 14px;
+    height: 22px;
+    color: black;
+    appearance: none;
+    font-family: var(--global-font-family);
+    border: 1px solid #000;
+    appearance: none;
+    margin-top: 1px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 select {
@@ -119,7 +165,7 @@ select {
     margin-bottom: 14px;
 }
 
-.path-links{
+.path-links {
     font-size: 14px;
 }
 
@@ -147,7 +193,8 @@ p.progress-text {
 div.home-info {
     margin-top: 25px;
     text-align: center;
-    border: 2px solid #000; /* Set the border width and color */
+    border: 2px solid #000;
+    /* Set the border width and color */
     padding: 0px;
     width: 500px;
 }

@@ -159,7 +159,7 @@ try {
     pathVar = typeof request.params.path !== "undefined" ? String(request.params.path).replace(/\+/g, '/').replace(/\%20/g, ' ') : '';
 
     // File Path with links
-    names = names.concat('<div class=\"path-links\"><a>/ </a><a href=\"/files/\">root</a>');
+    names = names.concat('<div class=\"path-links\"><a>/ </a><a class=\"b-link\" href=\"/files/\">root</a>');
     pathArr = typeof request.params.path !== "undefined" ? request.params.path.split("+") : '';
     for (let i = 0; i < pathArr.length; i++) {
       subPath = '';
@@ -169,7 +169,7 @@ try {
       if (subPath.startsWith("+")) {
         subPath = subPath.slice(1);
       }
-      names = names.concat("<a>  /  </a><a href=\"/files/", subPath, "\">", pathArr[i], "</a>");
+      names = names.concat("<a>  /  </a><a class=\"b-link\" href=\"/files/", subPath, "\">", pathArr[i], "</a>");
     }
 
     //New folder button
@@ -249,7 +249,7 @@ try {
               trail = trail.slice(1);
             }
             names = names.concat("<tr> \
-          <td><a href=\"", trail, "\">", file, "</a></td> \
+          <td><a class=\"b-link\" href=\"", trail, "\">", file, "</a></td> \
           <td><button id=\"button0-", buttonIndex, "\">Rename</button></td> \
           <td><button id=\"button1-", buttonIndex, "\">Delete</button></td> \
           <td><select class=\"folder-drop-down\" name=\"loc\" id=\"select2-", buttonIndex, "\">", dropdownOptions, "</td><td></select><button id=\"button2-", buttonIndex, "\">Move</button></td> \
@@ -374,8 +374,8 @@ try {
     terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
     text = header.concat("<body> \
     ", generateNavbar(), " \
-    <input class=\"searchbox\" type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
-    <button onclick=\"searchRedirect()\">Search</button> \
+    <div class=\"search-container\"><input class=\"searchbox\" type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
+    <button class=\"search-button\" onclick=\"searchRedirect()\">Search</button></div> \
     <script> \
     function searchRedirect() { \
       var searchTerms = document.getElementById('search').value; \
@@ -584,6 +584,7 @@ function generateNavbar() {
   }
   navbar = navbar.concat("\
     <nav> \
+      <img class=\"cabbage-logo\" src=\"/images/cabbage\" alt=\"Cabbage Connect Logo\"> \
       <a href=\"http://", localIPGlobal , ":3000\">Home</a> \
       <a href=\"http://", localIPGlobal , ":3000/files/\">File Explorer</a> \
       <a class=\"", pirateLinkClass, "\" href=\"", pirateLink, "\">Pirate Search</a> \
