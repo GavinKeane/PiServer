@@ -423,7 +423,7 @@ try {
         try {
           if (allItemsNameMagSeedLeech[tors][0] !== "") {
             text = text.concat("<tr>");
-            text = text.concat("<td><a href=\"javascript:void(0)\" onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</a></td>");
+            text = text.concat("<td class=\"movie-cell\"><a class=\"b-link\" href=\"javascript:void(0)\" onclick=\"copyToClip('", allItemsNameMagSeedLeech[tors][1], "')\">", allItemsNameMagSeedLeech[tors][0], "</a></td>");
             for (let ind = 2; ind < 5; ind++) {
               text = text.concat("<td>", allItemsNameMagSeedLeech[tors][ind], "</td>");
               if (ind == 0) {

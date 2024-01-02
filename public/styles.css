@@ -40,6 +40,7 @@ nav {
     padding: 8px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
 }
 
 body {
@@ -51,10 +52,12 @@ nav a {
     color: white;
     text-decoration: none;
     margin-right: 38px;
+    white-space: nowrap;
 }
 
 nav a:hover {
     text-decoration: underline;
+    white-space: nowrap;
 }
 
 nav a.inactive-link {
@@ -62,6 +65,7 @@ nav a.inactive-link {
     color: var(--light-gray);
     text-decoration: none;
     cursor: default;
+    white-space: nowrap;
 }
 
 .searchbox {
@@ -126,8 +130,15 @@ button {
     appearance: none;
 }
 
+td.movie-cell {
+    max-width: 700px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
 img.cabbage-logo {
-    margin-right: 15px;
+    margin-right: 31px;
     height: 39px;
     width: 35px;
 }
