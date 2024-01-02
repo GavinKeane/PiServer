@@ -126,7 +126,7 @@ try {
         <p class="progress-text">Windscribe</p> \
         <progress class="', wind, '" value="100" max="100"></progress> \
         </div></div> \
-        <div class="progress-container"> \
+        <div class="progress-container last"> \
         <div class="progress-wrapper"> \
         <p class="progress-text">Transmission</p> \
         <progress class="', trans, '" value="100" max="100"></progress> \
@@ -169,7 +169,7 @@ try {
       if (subPath.startsWith("+")) {
         subPath = subPath.slice(1);
       }
-      names = names.concat("<a> / </a><a href=\"/files/", subPath, "\">", pathArr[i], "</a>");
+      names = names.concat("<a>  /  </a><a href=\"/files/", subPath, "\">", pathArr[i], "</a>");
     }
 
     //New folder button

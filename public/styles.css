@@ -1,6 +1,6 @@
 :root {
     --lightest-gray: #dbdbdb;
-    --light-gray: #a3a3a3;
+    --light-gray: #bdbdbd;
     --gray: #333333;
     --light-green: #75e27a;
     --light-red: #f36767;
@@ -30,10 +30,10 @@ body {
 }
 
 nav a {
-    font-size: 24px;
+    font-size: 22px;
     color: white;
     text-decoration: none;
-    margin-right: 30px;
+    margin-right: 38px;
 }
 
 nav a:hover {
@@ -86,6 +86,10 @@ tr {
     height: 29px;
 }
 
+.progress-container.last {
+    margin-bottom: 5px;
+}
+
 .progress-wrapper {
     position: relative;
 }
@@ -96,14 +100,18 @@ button {
     color: black;
     appearance: none;
     font-family: var(--global-font-family);
+    border: 1px solid #000;
+    appearance: none;
 }
 
 select {
+    max-width: 240px;
     background-color: var(--lightest-gray);
     font-size: 14px;
     color: black;
     appearance: none;
     font-family: var(--global-font-family);
+    border: 1px solid #000;
 }
 
 .new-folder {
@@ -113,16 +121,16 @@ select {
 
 .path-links{
     font-size: 14px;
-    margin-top: 4px;
 }
 
 button.reboot-button {
     margin-top: 19px;
-    width: 500px;
+    width: 504px;
     height: 34px;
     background-color: var(--light-gray);
     font-size: 24px;
     color: black;
+    border: 2px solid #000;
     appearance: none;
 }
 
@@ -137,8 +145,11 @@ p.progress-text {
 }
 
 div.home-info {
-    margin-top: 10px;
+    margin-top: 25px;
     text-align: center;
+    border: 2px solid #000; /* Set the border width and color */
+    padding: 0px;
+    width: 500px;
 }
 
 progress {
