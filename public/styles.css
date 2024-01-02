@@ -1,0 +1,9 @@
+.good{
+    color: green;
+    text-decoration: underline;
+}
+
+.bad{
+    color: red;
+    text-decoration: underline;
+}
