@@ -132,7 +132,7 @@ try {
         <progress class="', trans, '" value="100" max="100"></progress> \
         </div></div> \
         </div> \
-  <div><button  id=\"reboot\">Reboot Pi</button></div> \
+  <div><button class=\"reboot-button\" id=\"reboot\">Reboot Pi</button></div> \
   </body>');
 
         buttonScript = "<script>$(document).ready(function () { \
@@ -159,7 +159,7 @@ try {
     pathVar = typeof request.params.path !== "undefined" ? String(request.params.path).replace(/\+/g, '/').replace(/\%20/g, ' ') : '';
 
     // File Path with links
-    names = names.concat('<div><a>/ </a><a href=\"/files/\">root</a>');
+    names = names.concat('<div class=\"path-links\"><a>/ </a><a href=\"/files/\">root</a>');
     pathArr = typeof request.params.path !== "undefined" ? request.params.path.split("+") : '';
     for (let i = 0; i < pathArr.length; i++) {
       subPath = '';
@@ -173,7 +173,7 @@ try {
     }
 
     //New folder button
-    names = names.concat("</div><div><button id=\"newfolder\">New Folder</button></div>");
+    names = names.concat("</div><div><button class=\"new-folder\" id=\"newfolder\">New Folder</button></div>");
 
     // List Files and Folders
     dropdownOptions = '';

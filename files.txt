@@ -74,10 +74,13 @@ usb/
     Shutter Island.mp4
     Split.mp4
     Tenet.mp4
-    Terminator 2.mp4
+    Terminator/
+      Terminator 2.mp4
+      The Terminator.mp4
     The Big Lebowski.mp4
-    The Dark Knight Rises.mp4
-    The Dark Knight.mp4
+    The Dark Knight/
+      The Dark Knight Rises.mp4
+      The Dark Knight.mp4
     The Departed.mp4
     The Emperor's New Groove.mp4
     The Green Mile.mp4
@@ -101,7 +104,6 @@ usb/
     The Silence of the Lambs.mp4
     The Social Network.mp4
     The Sound of Music.mp4
-    The Terminator.mp4
     The Truman Show.mp4
     The Usual Suspects.mp4
     The Wolf Of Wall Street.mp4

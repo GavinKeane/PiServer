@@ -1,3 +1,12 @@
+:root {
+    --lightest-gray: #dbdbdb;
+    --light-gray: #a3a3a3;
+    --gray: #333333;
+    --light-green: #75e27a;
+    --light-red: #f36767;
+    --global-font-family: 'Courier New', Courier, monospace;
+}
+
 .good {
     color: green;
     text-decoration: underline;
@@ -9,15 +18,19 @@
 }
 
 nav {
-    background-color: #333;
+    background-color: var(--gray);
     color: white;
     padding: 10px;
     display: flex;
     align-items: center;
 }
 
+body {
+    font-family: var(--global-font-family);
+}
+
 nav a {
-    font-size: larger;
+    font-size: 24px;
     color: white;
     text-decoration: none;
     margin-right: 30px;
@@ -29,13 +42,38 @@ nav a:hover {
 
 nav a.inactive-link {
     pointer-events: none;
-    color: #555555;
+    color: var(--light-gray);
     text-decoration: none;
     cursor: default;
 }
 
 .searchbox {
     margin-top: 10px;
+    width: 250px;
+    appearance: none;
+    font-family: var(--global-font-family);
+}
+
+table {
+    text-align: left;
+    white-space: nowrap;
+}
+
+td {
+    text-align: left;
+    padding-right: 8px;
+    white-space: nowrap;
+}
+
+th {
+    text-align: left;
+    font-weight: normal;
+    font-family: var(--global-font-family);
+    white-space: nowrap;
+}
+
+tr {
+    white-space: nowrap;
 }
 
 .explorer-top {
@@ -44,11 +82,48 @@ nav a.inactive-link {
 
 .progress-container {
     text-align: left;
-    margin-bottom: 2px;
+    margin-bottom: 8px;
+    height: 29px;
 }
 
 .progress-wrapper {
     position: relative;
+}
+
+button {
+    background-color: var(--lightest-gray);
+    font-size: 14px;
+    color: black;
+    appearance: none;
+    font-family: var(--global-font-family);
+}
+
+select {
+    background-color: var(--lightest-gray);
+    font-size: 14px;
+    color: black;
+    appearance: none;
+    font-family: var(--global-font-family);
+}
+
+.new-folder {
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+.path-links{
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+button.reboot-button {
+    margin-top: 19px;
+    width: 500px;
+    height: 34px;
+    background-color: var(--light-gray);
+    font-size: 24px;
+    color: black;
+    appearance: none;
 }
 
 p.progress-text {
@@ -58,31 +133,32 @@ p.progress-text {
     width: 100%;
     margin: 0;
     margin-left: 5px;
-    font-size: 14px;
+    font-size: 24px;
 }
 
 div.home-info {
     margin-top: 10px;
+    text-align: center;
 }
 
 progress {
-    width: 300px;
-    height: 25px;
+    width: 500px;
+    height: 34px;
     appearance: none;
 }
 
 progress::-webkit-progress-bar {
-    background-color: #a3a3a3;
+    background-color: var(--light-gray);
 }
 
 progress::-webkit-progress-value {
-    background-color: #75e27a;
+    background-color: var(--light-green);
 }
 
 progress.progress-good::-webkit-progress-value {
-    background-color: #75e27a;
+    background-color: var(--light-green);
 }
 
 progress.progress-bad::-webkit-progress-value {
-    background-color: #f36767;
+    background-color: var(--light-red);
 }
