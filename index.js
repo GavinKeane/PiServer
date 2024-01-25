@@ -21,7 +21,7 @@ app.use(express.static('public'));
 localIPGlobal = '';
 try {
   output1 = '';
-  maxCacheSize = 53687091200;
+  maxCacheSize = 16107212288;
   const networkInterfaces = os.networkInterfaces();
   let localIP = "1.1.1.1";
   const interfaces = os.networkInterfaces();
