@@ -29,6 +29,7 @@ usb/
     Gran Torino.mp4
     Gran Turismo.mp4
     Green Book.mkv
+    Groundhog Day.mkv
     Harry Potter/
       Harry Potter and the Chamber of Secrets.mp4
       Harry Potter and the Deathly Hallows Part 1.mp4
@@ -504,6 +505,22 @@ usb/
     Nathan for You/
       Season 4/
         Nathan for You - S04E07.mp4
+    Queer Eye/
+      Season 7/
+        Queer Eye S07E01.mkv
+        Queer Eye S07E02.mkv
+        Queer Eye S07E03.mkv
+        Queer Eye S07E04.mkv
+        Queer Eye S07E05.mkv
+        Queer Eye S07E06.mkv
+        Queer Eye S07E07.mkv
+      Season 8/
+        Queer Eye S08E01.mkv
+        Queer Eye S08E02.mkv
+        Queer Eye S08E03.mkv
+        Queer Eye S08E04.mkv
+        Queer Eye S08E05.mkv
+        Queer Eye S08E06.mkv
     The Good Place/
       Season 1/
         The Good Place S01E01.mp4
