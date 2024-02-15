@@ -18,6 +18,7 @@ usb/
     Christmas in Notting Hill.mp4
     Clifford the Big Red Dog.mp4
     Crazy Rich Asians.mp4
+    Crazy Stupid Love.mp4
     Dirty Dancing.mp4
     Edward Scissorhands.mp4
     Elf.mp4
@@ -505,6 +506,22 @@ usb/
     Nathan for You/
       Season 4/
         Nathan for You - S04E07.mp4
+    One Day/
+      Season 1/
+        One Day S01E01.mkv
+        One Day S01E02.mkv
+        One Day S01E03.mkv
+        One Day S01E04.mkv
+        One Day S01E05.mkv
+        One Day S01E06.mkv
+        One Day S01E07.mkv
+        One Day S01E08.mkv
+        One Day S01E09.mkv
+        One Day S01E10.mkv
+        One Day S01E11.mkv
+        One Day S01E12.mkv
+        One Day S01E13.mkv
+        One Day S01E14.mkv
     Queer Eye/
       Season 7/
         Queer Eye S07E01.mkv
