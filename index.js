@@ -597,5 +597,5 @@ function generateNavbar() {
 
 cron.schedule('0 5 * * 1,3,5', () => {
   const { execSync } = require('child_process');
-  execSync("sudo apt update && sudo apt upgrade && sudo reboot");
+  execSync("sudo reboot");
 });
