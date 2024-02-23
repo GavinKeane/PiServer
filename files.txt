@@ -10,18 +10,28 @@ usb/
     Back to the Future Part 2.mp4
     Back to the Future.mp4
     Barbie.mp4
-    Best Christmas Ever.mkv
+    Bill and Ted’s Excellent Adventure.mp4
     Blade Runner.mp4
     Borat.mp4
     Bridesmaids.mp4
     Catch Me If You Can.mp4
-    Christmas in Notting Hill.mp4
+    Christmas Movies/
+      Best Christmas Ever.mkv
+      Christmas in Notting Hill.mp4
+      Edward Scissorhands.mp4
+      Elf.mp4
+      Home Alone 2 Lost in New York.mp4
+      Home Alone.mp4
+      How the Grinch Stole Christmas.mp4
+      Rudolph The Red-Nosed Reindeer - The Movie.avi
+      The Polar Express.mp4
+      The Santa Clause 2.mp4
+      The Santa Clause 3 - The Escape Clause.mp4
+      The Santa Clause.mp4
     Clifford the Big Red Dog.mp4
     Crazy Rich Asians.mp4
     Crazy Stupid Love.mp4
     Dirty Dancing.mp4
-    Edward Scissorhands.mp4
-    Elf.mp4
     Fight Club.mp4
     First Man.mkv
     Fletch.mp4
@@ -42,9 +52,6 @@ usb/
       Harry Potter and the Sorcerers Stone.mp4
     Hitch (2005).mp4
     Hocus Pocus 2.mp4
-    Home Alone 2 Lost in New York.mp4
-    Home Alone.mp4
-    How the Grinch Stole Christmas.mp4
     Inception.mp4
     Insomnia.mp4
     Interstellar.mp4
@@ -72,11 +79,11 @@ usb/
     Pride and Prejudice.mp4
     Primal Fear.mkv
     Queenpins.mp4
-    Rudolph The Red-Nosed Reindeer - The Movie.avi
     Safe Haven.mp4
     Schindler's List.mp4
-    Sex and the City 2.mp4
-    Sex and the City.mp4
+    Sex and the City/
+      Sex and the City 2.mp4
+      Sex and the City.mp4
     Shutter Island.mp4
     Split.mp4
     Tenet.mp4
@@ -90,6 +97,7 @@ usb/
       The Dark Knight.mp4
     The Departed.mp4
     The Emperor's New Groove.mp4
+    The Eras Tour.mkv
     The Green Mile.mp4
     The Hunger Games.mp4
     The Imitation Game.mp4
@@ -99,12 +107,8 @@ usb/
     The Longest Ride.mp4
     The Nice Guys.mkv
     The Notebook.mp4
-    The Polar Express.mp4
     The Prestige.mp4
     The Royal Tenenbaums.mp4
-    The Santa Clause 2.mp4
-    The Santa Clause 3 - The Escape Clause.mp4
-    The Santa Clause.mp4
     The Secret Life of Walter Mitty.mp4
     The Shawshank Redemption.mp4
     The Shining.mp4
