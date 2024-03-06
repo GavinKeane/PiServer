@@ -76,6 +76,7 @@ usb/
       Pirates of the Caribbean At Worlds End.mp4
       Pirates of the Caribbean Curse of the Black Pearl.mp4
       Pirates of the Caribbean Dead Man's Chest.mp4
+    Players.mp4
     Pride and Prejudice.mp4
     Primal Fear.mkv
     Queenpins.mp4
@@ -122,6 +123,7 @@ usb/
     Top Gun.mp4
     Transformers.mp4
     Unbreakable.mp4
+    Wonka.mp4
     Zero Effect.mp4
   TV/
     All The Light We Cannot See/
