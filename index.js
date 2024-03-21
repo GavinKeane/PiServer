@@ -529,7 +529,7 @@ try {
       contents = contents.concat(' \
       <body> \
       ', generateNavbar(), ' \
-      <iframe src="https://app.plex.tv/desktop/#!/" width="100%" height="1235px" frameborder="0"></iframe>'
+      <iframe src="https://app.plex.tv/desktop" width="100%" height="1235px" frameborder="0"></iframe></body>'
       );
       response.send(contents);
      });
@@ -589,13 +589,16 @@ function generateNavbar() {
       <a href=\"http://", localIPGlobal , ":3000/files/\">File Explorer</a> \
       <a class=\"", pirateLinkClass, "\" href=\"", pirateLink, "\">Pirate Search</a> \
       <a href=\"http://", localIPGlobal , ":3000/transmission/\">Transmission</a> \
-      <a href=\"http://", localIPGlobal , ":3000/plex/\">Plex Portal</a> \
+      <a href=\"http://app.plex.tv\" target=\"_blank\">Plex Portal</a> \
     </nav> \
   ");
+  //<a href=\"http://", localIPGlobal , ":3000/plex/\">Plex Portal</a> \
   return navbar;
 }
 
 cron.schedule('0 5 * * 1,3,5', () => {
   const { execSync } = require('child_process');
+  execSync("sudo apt update");
+  execSync("sudo apt upgrade -y");
   execSync("sudo reboot");
 });
