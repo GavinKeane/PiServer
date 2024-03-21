@@ -529,7 +529,7 @@ try {
       contents = contents.concat(' \
       <body> \
       ', generateNavbar(), ' \
-      <iframe src="http://', localIPGlobal , ':32400\" width="100%" height="1235px" frameborder="0"></iframe>'
+      <iframe src="https://app.plex.tv/desktop/#!/" width="100%" height="1235px" frameborder="0"></iframe>'
       );
       response.send(contents);
      });

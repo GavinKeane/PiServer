@@ -62,6 +62,10 @@ usb/
     Long Shot.mp4
     Looper.mp4
     Love Again.mp4
+    Maze Runner/
+      Maze Runner The Death Cure.mkv
+      Maze Runner The Scorch Trials.mp4
+      The Maze Runner.mp4
     Me Before You.mp4
     Memento.mp4
     Midsommar.mp4
