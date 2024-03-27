@@ -1,5 +1,11 @@
 usb/
   Downloads/
+    Bride Wars (2009) [1080p]/
+      Bride.Wars.2009.1080p.BrRip.x264.YIFY.srt
+      WWW.YIFY-TORRENTS.COM.jpg
+    The.Holdovers.2023.1080p.WEBRip.1600MB.DD5.1.x264-GalaxyRG[TGx]/
+      NEW upcoming releases by Xclusive.txt
+      [TGx]Downloaded from torrentgalaxy.to .txt
   Movies/
     27 Dresses.mp4
     A Clockwork Orange.mp4
@@ -13,6 +19,7 @@ usb/
     Bill and Ted’s Excellent Adventure.mp4
     Blade Runner.mp4
     Borat.mp4
+    Bride Wars.mp4
     Bridesmaids.mp4
     Catch Me If You Can.mp4
     Christmas Movies/
@@ -73,6 +80,7 @@ usb/
     Moon.mp4
     Moonrise Kingdom.mp4
     My Cousin Vinny.mp4
+    Notting Hill.mp4
     Oblivion.mp4
     Office Space.mkv
     Oppenheimer.mkv
@@ -104,6 +112,7 @@ usb/
     The Emperor's New Groove.mp4
     The Eras Tour.mkv
     The Green Mile.mp4
+    The Holdovers.mkv
     The Hunger Games.mp4
     The Imitation Game.mp4
     The Iron Giant.mkv
