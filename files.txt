@@ -1,10 +1,14 @@
 usb/
   Downloads/
-    Bride Wars (2009) [1080p]/
-      Bride.Wars.2009.1080p.BrRip.x264.YIFY.srt
-      WWW.YIFY-TORRENTS.COM.jpg
-    The.Holdovers.2023.1080p.WEBRip.1600MB.DD5.1.x264-GalaxyRG[TGx]/
-      NEW upcoming releases by Xclusive.txt
+    Bridgerton.S01.COMPLETE.1080p.WEB.h264-TRIPEL[TGx]/
+      Bridgerton.S01E01.1080p.WEB.h264-TRIPEL.mkv
+      Bridgerton.S01E02.1080p.WEB.h264-TRIPEL.mkv
+      Bridgerton.S01E03.1080p.WEB.h264-TRIPEL.mkv
+      Bridgerton.S01E04.1080p.WEB.h264-TRIPEL.mkv
+      Bridgerton.S01E05.1080p.WEB.h264-TRIPEL.mkv
+      Bridgerton.S01E06.1080p.WEB.h264-TRIPEL.mkv
+      Bridgerton.S01E07.1080p.WEB.h264-TRIPEL.mkv
+      Bridgerton.S01E08.1080p.WEB.h264-TRIPEL.mkv
       [TGx]Downloaded from torrentgalaxy.to .txt
   Movies/
     27 Dresses.mp4
@@ -36,9 +40,13 @@ usb/
       The Santa Clause 3 - The Escape Clause.mp4
       The Santa Clause.mp4
     Clifford the Big Red Dog.mp4
+    Contact.mp4
     Crazy Rich Asians.mp4
     Crazy Stupid Love.mp4
     Dirty Dancing.mp4
+    Dune/
+      Dune Part One.mp4
+      Dune Part Two.mp4
     Fight Club.mp4
     First Man.mkv
     Fletch.mp4
@@ -89,6 +97,7 @@ usb/
       Pirates of the Caribbean Curse of the Black Pearl.mp4
       Pirates of the Caribbean Dead Man's Chest.mp4
     Players.mp4
+    Poor Things.mp4
     Pride and Prejudice.mp4
     Primal Fear.mkv
     Queenpins.mp4
@@ -139,11 +148,29 @@ usb/
     Wonka.mp4
     Zero Effect.mp4
   TV/
+    A Gentleman in Moscow/
+      Season 1/
+        A Gentleman in Moscow - S01E01.mkv
+        A Gentleman in Moscow - S01E02.mkv
+        A Gentleman in Moscow - S01E03.mkv
+        A Gentleman in Moscow - S01E04.mkv
+        A Gentleman in Moscow - S01E05.mkv
+        A Gentleman in Moscow - S01E06.mkv
     All The Light We Cannot See/
       All The Light We Cannot See S01E01.mp4
       All The Light We Cannot See S01E02.mp4
       All The Light We Cannot See S01E03.mp4
       All The Light We Cannot See S01E04.mp4
+    Bridgerton/
+      Season 2/
+        Bridgerton - S02E01.mkv
+        Bridgerton - S02E02.mkv
+        Bridgerton - S02E03.mkv
+        Bridgerton - S02E04.mkv
+        Bridgerton - S02E05.mkv
+        Bridgerton - S02E06.mkv
+        Bridgerton - S02E07.mkv
+        Bridgerton - S02E08.mkv
     Community/
       Season 1/
         S01E01 - Pilot.mkv
@@ -261,6 +288,251 @@ usb/
         S06E11 - Modern Espionage.mkv
         S06E12 - Wedding Videography.mkv
         S06E13 - Emotional Consequences of Broadcast Television.mkv
+    Friends/
+      Season 1/
+        Friends S01E01.mkv
+        Friends S01E02.mkv
+        Friends S01E03.mkv
+        Friends S01E04.mkv
+        Friends S01E05.mkv
+        Friends S01E06.mkv
+        Friends S01E07.mkv
+        Friends S01E08.mkv
+        Friends S01E09.mkv
+        Friends S01E10.mkv
+        Friends S01E11.mkv
+        Friends S01E12.mkv
+        Friends S01E13.mkv
+        Friends S01E14.mkv
+        Friends S01E15.mkv
+        Friends S01E16.mkv
+        Friends S01E17.mkv
+        Friends S01E18.mkv
+        Friends S01E19.mkv
+        Friends S01E20.mkv
+        Friends S01E21.mkv
+        Friends S01E22.mkv
+        Friends S01E23.mkv
+        Friends S01E24.mkv
+      Season 10/
+        Friends S10E01.mkv
+        Friends S10E02.mkv
+        Friends S10E03.mkv
+        Friends S10E04.mkv
+        Friends S10E05.mkv
+        Friends S10E06.mkv
+        Friends S10E07.mkv
+        Friends S10E08.mkv
+        Friends S10E09.mkv
+        Friends S10E10.mkv
+        Friends S10E11.mkv
+        Friends S10E12.mkv
+        Friends S10E13.mkv
+        Friends S10E14.mkv
+        Friends S10E15.mkv
+        Friends S10E16.mkv
+        Friends S10E17E18.mkv
+      Season 2/
+        Friends S02E01.mkv
+        Friends S02E02.mkv
+        Friends S02E03.mkv
+        Friends S02E04.mkv
+        Friends S02E05.mkv
+        Friends S02E06.mkv
+        Friends S02E07.mkv
+        Friends S02E08.mkv
+        Friends S02E09.mkv
+        Friends S02E10.mkv
+        Friends S02E11.mkv
+        Friends S02E12.mkv
+        Friends S02E13.mkv
+        Friends S02E14.mkv
+        Friends S02E15.mkv
+        Friends S02E16.mkv
+        Friends S02E17.mkv
+        Friends S02E18.mkv
+        Friends S02E19.mkv
+        Friends S02E20.mkv
+        Friends S02E21.mkv
+        Friends S02E22.mkv
+        Friends S02E23.mkv
+        Friends S02E24.mkv
+      Season 3/
+        Friends S03E01.mkv
+        Friends S03E02.mkv
+        Friends S03E03.mkv
+        Friends S03E04.mkv
+        Friends S03E05.mkv
+        Friends S03E06.mkv
+        Friends S03E07.mkv
+        Friends S03E08.mkv
+        Friends S03E09.mkv
+        Friends S03E10.mkv
+        Friends S03E11.mkv
+        Friends S03E12.mkv
+        Friends S03E13.mkv
+        Friends S03E14.mkv
+        Friends S03E15.mkv
+        Friends S03E16.mkv
+        Friends S03E17.mkv
+        Friends S03E18.mkv
+        Friends S03E19.mkv
+        Friends S03E20.mkv
+        Friends S03E21.mkv
+        Friends S03E22.mkv
+        Friends S03E23.mkv
+        Friends S03E24.mkv
+        Friends S03E25.mkv
+      Season 4/
+        Friends S04E01.mkv
+        Friends S04E02.mkv
+        Friends S04E03.mkv
+        Friends S04E04.mkv
+        Friends S04E05.mkv
+        Friends S04E06.mkv
+        Friends S04E07.mkv
+        Friends S04E08.mkv
+        Friends S04E09.mkv
+        Friends S04E10.mkv
+        Friends S04E11.mkv
+        Friends S04E12.mkv
+        Friends S04E13.mkv
+        Friends S04E14.mkv
+        Friends S04E15.mkv
+        Friends S04E16.mkv
+        Friends S04E17.mkv
+        Friends S04E18.mkv
+        Friends S04E19.mkv
+        Friends S04E20.mkv
+        Friends S04E21.mkv
+        Friends S04E22.mkv
+        Friends S04E23.mkv
+        Friends S04E24.mkv
+      Season 5/
+        Friends S05E01.mkv
+        Friends S05E02.mkv
+        Friends S05E03.mkv
+        Friends S05E04.mkv
+        Friends S05E05.mkv
+        Friends S05E06.mkv
+        Friends S05E07.mkv
+        Friends S05E08.mkv
+        Friends S05E09.mkv
+        Friends S05E10.mkv
+        Friends S05E11.mkv
+        Friends S05E12.mkv
+        Friends S05E13.mkv
+        Friends S05E14.mkv
+        Friends S05E15.mkv
+        Friends S05E16.mkv
+        Friends S05E17.mkv
+        Friends S05E18.mkv
+        Friends S05E19.mkv
+        Friends S05E20.mkv
+        Friends S05E21.mkv
+        Friends S05E22.mkv
+        Friends S05E23.mkv
+        Friends S05E24.mkv
+      Season 6/
+        Friends S06E01.mkv
+        Friends S06E02.mkv
+        Friends S06E03.mkv
+        Friends S06E04.mkv
+        Friends S06E05.mkv
+        Friends S06E06.mkv
+        Friends S06E07.mkv
+        Friends S06E08.mkv
+        Friends S06E09.mkv
+        Friends S06E10.mkv
+        Friends S06E11.mkv
+        Friends S06E12.mkv
+        Friends S06E13.mkv
+        Friends S06E14.mkv
+        Friends S06E15.mkv
+        Friends S06E16.mkv
+        Friends S06E17.mkv
+        Friends S06E18.mkv
+        Friends S06E19.mkv
+        Friends S06E20.mkv
+        Friends S06E21.mkv
+        Friends S06E22.mkv
+        Friends S06E23.mkv
+        Friends S06E24.mkv
+        Friends S06E25.mkv
+      Season 7/
+        Friends S07E01.mkv
+        Friends S07E02.mkv
+        Friends S07E03.mkv
+        Friends S07E04.mkv
+        Friends S07E05.mkv
+        Friends S07E06.mkv
+        Friends S07E07.mkv
+        Friends S07E08.mkv
+        Friends S07E09.mkv
+        Friends S07E10.mkv
+        Friends S07E11.mkv
+        Friends S07E12.mkv
+        Friends S07E13.mkv
+        Friends S07E14.mkv
+        Friends S07E15.mkv
+        Friends S07E16.mkv
+        Friends S07E17.mkv
+        Friends S07E18.mkv
+        Friends S07E19.mkv
+        Friends S07E20.mkv
+        Friends S07E21.mkv
+        Friends S07E22.mkv
+        Friends S07E23.mkv
+        Friends S07E24.mkv
+      Season 8/
+        Friends S08E01.mkv
+        Friends S08E02.mkv
+        Friends S08E03.mkv
+        Friends S08E04.mkv
+        Friends S08E05.mkv
+        Friends S08E06.mkv
+        Friends S08E07.mkv
+        Friends S08E08.mkv
+        Friends S08E09.mkv
+        Friends S08E10.mkv
+        Friends S08E11.mkv
+        Friends S08E12.mkv
+        Friends S08E13.mkv
+        Friends S08E14.mkv
+        Friends S08E15.mkv
+        Friends S08E16.mkv
+        Friends S08E17.mkv
+        Friends S08E18.mkv
+        Friends S08E19.mkv
+        Friends S08E20.mkv
+        Friends S08E21.mkv
+        Friends S08E22.mkv
+        Friends S08E23.mkv
+        Friends S08E24.mkv
+      Season 9/
+        Friends S09E01.mkv
+        Friends S09E02.mkv
+        Friends S09E03.mkv
+        Friends S09E04.mkv
+        Friends S09E05.mkv
+        Friends S09E06.mkv
+        Friends S09E07.mkv
+        Friends S09E08.mkv
+        Friends S09E09.mkv
+        Friends S09E10.mkv
+        Friends S09E11.mkv
+        Friends S09E12.mkv
+        Friends S09E13.mkv
+        Friends S09E14.mkv
+        Friends S09E15.mkv
+        Friends S09E16.mkv
+        Friends S09E17.mkv
+        Friends S09E18.mkv
+        Friends S09E19.mkv
+        Friends S09E20.mkv
+        Friends S09E21.mkv
+        Friends S09E22.mkv
+        Friends S09E23E24.mkv
     Modern Family/
       Season 1/
         Modern Family (2009) - S01E01 - Pilot (1080p BluRay x265 Silence).mkv
