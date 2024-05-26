@@ -18,6 +18,8 @@ const disk = require('diskusage');
 const { maxHeaderSize } = require('http');
 app.use(express.static('public'));
 
+
+username = os.userInfo().username;
 localIPGlobal = '';
 try {
   output1 = '';
@@ -47,7 +49,7 @@ try {
     yo = execSync("pm2 restart index", { timeout: 15000 }).toString();
   }
 
-  const fileListFile = '/home/gavin/Documents/projectv2/PiServer/files.txt';
+  const fileListFile = '/home/'.concat(username,'/Documents/projectv2/PiServer/files.txt');
   const fileList = generateFileList('/mnt');
   fs.writeFileSync(fileListFile, fileList);
 
@@ -95,7 +97,7 @@ try {
         if (err) {
           console.error(err);
         }
-        comm = execSync("bash /home/gavin/Documents/projectv2/PiServer/check-wind.sh && bash /home/gavin/Documents/projectv2/PiServer/check-trans.sh", { timeout: 15000 }).toString();
+        comm = execSync("bash /home/".concat(username, "/Documents/projectv2/PiServer/check-wind.sh && bash /home/",username,"/Documents/projectv2/PiServer/check-trans.sh"), { timeout: 15000 }).toString();
         wind = '';
         trans = '';
         if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
@@ -574,7 +576,7 @@ function generateNavbar() {
   navbar = '';
   pirateLinkClass = '';
   pirateLink = '';
-  comm = execSync("bash /home/gavin/Documents/projectv2/PiServer/check-wind.sh && bash /home/gavin/Documents/projectv2/PiServer/check-trans.sh", { timeout: 15000 }).toString();
+  comm = execSync("bash /home/".concat(username,"/Documents/projectv2/PiServer/check-wind.sh && bash /home/",username,"/Documents/projectv2/PiServer/check-trans.sh"), { timeout: 15000 }).toString();
   if (comm.includes("CONNECTED") && !comm.includes("DISCONNECTED")) {
     pirateLinkClass = 'active-link';
     pirateLink = pirateLink.concat("http://", localIPGlobal , ":3000/search/");

@@ -1,15 +1,5 @@
 usb/
   Downloads/
-    Bridgerton.S01.COMPLETE.1080p.WEB.h264-TRIPEL[TGx]/
-      Bridgerton.S01E01.1080p.WEB.h264-TRIPEL.mkv
-      Bridgerton.S01E02.1080p.WEB.h264-TRIPEL.mkv
-      Bridgerton.S01E03.1080p.WEB.h264-TRIPEL.mkv
-      Bridgerton.S01E04.1080p.WEB.h264-TRIPEL.mkv
-      Bridgerton.S01E05.1080p.WEB.h264-TRIPEL.mkv
-      Bridgerton.S01E06.1080p.WEB.h264-TRIPEL.mkv
-      Bridgerton.S01E07.1080p.WEB.h264-TRIPEL.mkv
-      Bridgerton.S01E08.1080p.WEB.h264-TRIPEL.mkv
-      [TGx]Downloaded from torrentgalaxy.to .txt
   Movies/
     27 Dresses.mp4
     A Clockwork Orange.mp4
@@ -87,6 +77,7 @@ usb/
     Missing.mp4
     Moon.mp4
     Moonrise Kingdom.mp4
+    Mother of the Bride.mp4
     My Cousin Vinny.mp4
     Notting Hill.mp4
     Oblivion.mp4
@@ -156,12 +147,22 @@ usb/
         A Gentleman in Moscow - S01E04.mkv
         A Gentleman in Moscow - S01E05.mkv
         A Gentleman in Moscow - S01E06.mkv
+        A Gentleman in Moscow - S01E07.mkv
     All The Light We Cannot See/
       All The Light We Cannot See S01E01.mp4
       All The Light We Cannot See S01E02.mp4
       All The Light We Cannot See S01E03.mp4
       All The Light We Cannot See S01E04.mp4
     Bridgerton/
+      Season 1/
+        Bridgerton - S01E01.mkv
+        Bridgerton - S01E02.mkv
+        Bridgerton - S01E03.mkv
+        Bridgerton - S01E04.mkv
+        Bridgerton - S01E05.mkv
+        Bridgerton - S01E06.mkv
+        Bridgerton - S01E07.mkv
+        Bridgerton - S01E08.mkv
       Season 2/
         Bridgerton - S02E01.mkv
         Bridgerton - S02E02.mkv
@@ -171,6 +172,11 @@ usb/
         Bridgerton - S02E06.mkv
         Bridgerton - S02E07.mkv
         Bridgerton - S02E08.mkv
+      Season 3/
+        Bridgerton - S03E01.mkv
+        Bridgerton - S03E02.mkv
+        Bridgerton - S03E03.mkv
+        Bridgerton - S03E04.mkv
     Community/
       Season 1/
         S01E01 - Pilot.mkv
