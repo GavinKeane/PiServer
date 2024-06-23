@@ -4,6 +4,7 @@ usb/
     27 Dresses.mp4
     A Clockwork Orange.mp4
     A Star Is Born.mp4
+    Aquamarine.mp4
     Arrival.mp4
     Asteroid City.mp4
     Avatar (Extended).mkv
@@ -98,6 +99,7 @@ usb/
       Sex and the City 2.mp4
       Sex and the City.mp4
     Shutter Island.mp4
+    South Park - The End of Obesity.mkv
     Split.mp4
     Tenet.mp4
     Terminator/
@@ -105,6 +107,7 @@ usb/
       The Terminator.mp4
     The Best of Me.mp4
     The Big Lebowski.mp4
+    The Crying Game.mkv
     The Dark Knight/
       The Dark Knight Rises.mp4
       The Dark Knight.mp4
@@ -122,6 +125,7 @@ usb/
     The Nice Guys.mkv
     The Notebook.mp4
     The Prestige.mp4
+    The Princess Diaries.mp4
     The Royal Tenenbaums.mp4
     The Secret Life of Walter Mitty.mp4
     The Shawshank Redemption.mp4
@@ -148,6 +152,7 @@ usb/
         A Gentleman in Moscow - S01E05.mkv
         A Gentleman in Moscow - S01E06.mkv
         A Gentleman in Moscow - S01E07.mkv
+        A Gentleman in Moscow - S01E08.mkv
     All The Light We Cannot See/
       All The Light We Cannot See S01E01.mp4
       All The Light We Cannot See S01E02.mp4
@@ -177,6 +182,10 @@ usb/
         Bridgerton - S03E02.mkv
         Bridgerton - S03E03.mkv
         Bridgerton - S03E04.mkv
+        Bridgerton - S03E05.mkv
+        Bridgerton - S03E06.mkv
+        Bridgerton - S03E07.mkv
+        Bridgerton - S03E08.mkv
     Community/
       Season 1/
         S01E01 - Pilot.mkv
