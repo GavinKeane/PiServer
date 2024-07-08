@@ -38,6 +38,10 @@ usb/
     Dune/
       Dune Part One.mp4
       Dune Part Two.mp4
+    Fantastic Beasts/
+      Fantastic Beasts The Crimes Of Grindelwald.mp4
+      Fantastic Beasts The Secrets Of Dumbledore.mp4
+      Fantastic Beasts and Where to Find Them.mp4
     Fight Club.mp4
     First Man.mkv
     Fletch.mp4
@@ -80,6 +84,7 @@ usb/
     Moonrise Kingdom.mp4
     Mother of the Bride.mp4
     My Cousin Vinny.mp4
+    Mystic River.mp4
     Notting Hill.mp4
     Oblivion.mp4
     Office Space.mkv
