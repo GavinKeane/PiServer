@@ -553,6 +553,10 @@ usb/
         Friends S09E21.mkv
         Friends S09E22.mkv
         Friends S09E23E24.mkv
+    Love Island/
+      Season 6/
+        Love Island US - S06E01.mkv
+        Love Island US - S06E02.mp4
     Modern Family/
       Season 1/
         Modern Family (2009) - S01E01 - Pilot (1080p BluRay x265 Silence).mkv

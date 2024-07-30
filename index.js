@@ -137,6 +137,8 @@ try {
   <div><button class=\"reboot-button\" id=\"reboot\">Reboot Pi</button></div> \
   </body>');
 
+  text = text.concat('<p class="countdown">', countdown('2025-06-14'), "</p>")
+
         buttonScript = "<script>$(document).ready(function () { \
     $(\"#reboot\").click(function () \
     { if(confirm(\"Are you sure you want to reboot?\")){ \
@@ -570,6 +572,20 @@ async function runTest() {
   await browser.close();
   console.log("A test of the website is being run...");
   html2 = htmlString;
+}
+
+function countdown(targetDate) {
+  const currentDate = new Date();
+  const target = new Date(targetDate);
+  
+  if (target < currentDate) {
+    return "The target date has already passed.";
+  }
+
+  const millisecondsInADay = 24 * 60 * 60 * 1000;
+  const daysLeft = Math.ceil((target - currentDate) / millisecondsInADay);
+
+  return `Days until the wedding: ${daysLeft}`;
 }
 
 function generateNavbar() {

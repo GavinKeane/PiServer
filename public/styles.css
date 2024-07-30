@@ -178,6 +178,10 @@ select {
     font-size: 14px;
 }
 
+.countdown {
+    font-size: 24px;
+}
+
 button.reboot-button {
     margin-top: 19px;
     width: 504px;
