@@ -376,9 +376,14 @@ try {
   app.get('/search/:terms?', (request, response) => {
     result = '';
     terms = typeof request.params.terms !== "undefined" ? request.params.terms : "[blank]";
+    insertTextValue = "";
+    if (terms === "[blank]"){
+    }else{
+      insertTextValue = " value=\"".concat(terms,"\" ");
+    }
     text = header.concat("<body> \
     ", generateNavbar(), " \
-    <div class=\"search-container\"><input class=\"searchbox\" type=\"text\" id=\"search\" placeholder=\"Search for a show or movie\"> \
+    <div class=\"search-container\"><input class=\"searchbox\" type=\"text\" id=\"search\"", insertTextValue ,"placeholder=\"Search for a show or movie\"></input> \
     <button class=\"search-button\" onclick=\"searchRedirect()\">Search</button></div> \
     <script> \
     function searchRedirect() { \
